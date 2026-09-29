@@ -1,0 +1,48 @@
+services:
+  - type: web
+    name: homework-genie
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: homework-genie-db
+          property: connectionString
+      - key: DATABASE_SSL
+        value: "true"
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_INITIAL_PASSWORD
+        sync: false
+      - key: APP_BASE_URL
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "465"
+      - key: SMTP_SECURE
+        value: "true"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: EMAIL_FROM
+        value: "Homework Genie <hwgenie@proton.me>"
+      - key: ADMIN_NOTIFICATION_EMAIL
+        value: "hwgenie@proton.me"
+      - key: HG_DATA_DIR
+        value: /var/data
+    disk:
+      name: homework-genie-files
+      mountPath: /var/data
+      sizeGB: 5
+
+databases:
+  - name: homework-genie-db
+    plan: basic-256mb

@@ -1,0 +1,15 @@
+{
+  "name": "homework-genie",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Homework Genie production web app with PostgreSQL backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node tests/api.test.js"
+  },
+  "dependencies": {
+    "nodemailer": "^9.0.6",
+    "pg": "^8.16.3"
+  }
+}

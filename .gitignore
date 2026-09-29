@@ -1,0 +1,10 @@
+.env
+node_modules/
+data/db.json
+data/db.json.tmp
+data-test-*/
+.DS_Store
+.idea/
+
+data/files/*
+!data/files/.gitkeep

@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Kalam:wght@400;700&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <title>Homework Genie | Academic Support Made Simple</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Nunito Sans", Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #0f0718;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    /* NAVBAR */
+    nav {
+      width: 100%;
+      padding: 20px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo {
+      font-family: "Fredoka", sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .logo span {
+      color: #a855f7;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      color: #ddd;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #c084fc;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 11px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-outline {
+      border: 1px solid #7e22ce;
+      color: white;
+    }
+
+    .btn-primary {
+      background: #9333ea;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #7e22ce;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 650px;
+      display: flex;
+      align-items: center;
+      padding: 70px 7%;
+      background:#24152b;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 700px;
+      position: relative;
+      z-index: 2;
+      flex: 1 1 52%;
+    }
+
+    .hero-visual {
+      flex: 1 1 48%;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      margin-left: 35px;
+      z-index: 1;
+    }
+
+    .hero-photo-wrap {
+      width: min(100%, 610px);
+      height: 500px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      box-shadow: 0 30px 90px rgba(0,0,0,.38);
+      border: 1px solid rgba(192,132,252,.24);
+      transform: rotate(1deg);
+    }
+
+    .hero-photo-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background:rgba(22,13,27,.12);
+      pointer-events: none;
+    }
+
+    .hero-photo-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background:rgba(36,21,43,.08);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center 48%;
+      filter: saturate(.98) contrast(1.04) brightness(.94);
+    }
+
+    .hero-photo-glow {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      right: -90px;
+      bottom: -100px;
+      border-radius: 50%;
+      background: rgba(168,85,247,.28);
+      filter: blur(35px);
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      background: rgba(168,85,247,0.12);
+      border: 1px solid rgba(168,85,247,0.3);
+      color: #c084fc;
+      border-radius: 50px;
+      font-size: 13px;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 {
+      font-size: clamp(45px, 7vw, 75px);
+      line-height: 1.05;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 span {
+      color: #a855f7;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #bdb5c8;
+      max-width: 600px;
+      margin-bottom: 35px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .hero-buttons .btn {
+      padding: 15px 25px;
+    }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      gap: 50px;
+      margin-top: 55px;
+      flex-wrap: wrap;
+    }
+
+    .stat h3 {
+      font-size: 25px;
+      color: #c084fc;
+    }
+
+    .stat p {
+      font-size: 13px;
+      margin: 0;
+    }
+
+    /* SERVICES */
+    section {
+      padding: 90px 7%;
+    }
+
+    .section-title {
+      text-align: center;
+      max-width: 650px;
+      margin: auto;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .section-title p {
+      color: #aaa1b2;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      background: #1a0d27;
+      border: 1px solid #2d1b3d;
+      padding: 30px;
+      border-radius: 15px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #9333ea;
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(147,51,234,0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #a99fb0;
+      font-size: 14px;
+    }
+
+    /* HOW IT WORKS */
+    .steps {
+      max-width: 1000px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .step {
+      text-align: center;
+    }
+
+    .step-number {
+      width: 55px;
+      height: 55px;
+      background: #9333ea;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .step p {
+      color: #aaa1b2;
+      font-size: 14px;
+    }
+
+    /* CTA */
+    .cta {
+      background:#24152b;
+      text-align: center;
+      border-radius: 25px;
+      max-width: 1100px;
+      margin: 30px auto 90px;
+      padding: 70px 30px;
+    }
+
+    .cta h2 {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      color: #ddd;
+      margin-bottom: 30px;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 50px 7%;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    footer p {
+      color: #918898;
+      font-size: 13px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      color: #aaa1b2;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+
+    /* DASHBOARD ACTIONS */
+    .dash-nav .btn {
+      background:#ef4444;
+      border:2px solid #f87171;
+      color:#ffffff;
+      font-weight:800;
+      padding:11px 20px;
+      box-shadow:0 5px 18px rgba(239,68,68,.28);
+    }
+    .dash-nav .btn:hover { background:#dc2626; border-color:#fca5a5; transform:translateY(-1px); }
+    .assignment-upload-btn { margin-top:15px; font-weight:700; }
+    .upload-status { display:none; margin-top:14px; padding:12px 14px; border-radius:10px; background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.35); color:#bbf7d0; font-size:13px; }
+    .assignment-item { padding:16px; margin-bottom:12px; border:1px solid #3b2750; border-radius:12px; background:#100819; }
+    .assignment-item-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .btn-small { padding:8px 12px; font-size:12px; }
+
+    /* SIGN-UP MODALS */
+    .modal { display:none; position:fixed; inset:0; z-index:11000; background:rgba(0,0,0,.72); padding:25px; overflow-y:auto; }
+    .modal.active { display:flex; align-items:center; justify-content:center; }
+    .modal-box { width:100%; max-width:620px; background:#1a0d27; border:1px solid #4b2670; border-radius:18px; padding:32px; position:relative; box-shadow:0 20px 70px rgba(0,0,0,.55); }
+    .modal-box h2 { margin-bottom:8px; font-size:30px; }
+    .modal-box .subtitle { color:#aaa1b2; margin-bottom:24px; font-size:14px; }
+    .close-modal { position:absolute; right:18px; top:12px; background:none; border:0; color:#fff; font-size:28px; cursor:pointer; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .form-group { margin-bottom:16px; }
+    .form-group.full { grid-column:1/-1; }
+    .form-group label { display:block; margin-bottom:7px; font-size:13px; font-weight:600; color:#ddd; }
+    .form-group input, .form-group select, .form-group textarea { width:100%; padding:12px 13px; border-radius:9px; border:1px solid #3b2750; background:#100819; color:#fff; outline:none; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:#9333ea; }
+    .form-group input[type=file] { padding:10px; }
+    .subject-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+    .subject-option { display:flex; align-items:center; gap:8px; background:#100819; border:1px solid #3b2750; padding:10px; border-radius:8px; color:#ddd; font-size:13px; }
+    .subject-option input { width:auto; }
+    .form-note { color:#8f8598; font-size:12px; margin-top:7px; }
+    .form-submit { width:100%; margin-top:8px; }
+    .success-message { display:none; padding:16px; border:1px solid #6b21a8; background:rgba(147,51,234,.12); border-radius:10px; margin-top:15px; color:#ddd; }
+    @media (max-width:550px) { .modal { padding:12px; } .modal-box { padding:24px 18px; } .form-grid { grid-template-columns:1fr; } .form-group.full { grid-column:auto; } .subject-grid { grid-template-columns:1fr; } }
+
+
+    /* What We Offer */
+    .offer-section { background:var(--hg-plum-deep); color:#fff; }
+    .offer-section .section-title h2 { color:#fff; }
+    .offer-section .section-title p { color:#cfc3d2; }
+    .offer-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .offer-card { background:#211326; border:1px solid #49314f; border-radius:16px; padding:24px; box-shadow:0 10px 28px rgba(0,0,0,.14); }
+    .offer-card h3 { color:var(--hg-gold-light); font-size:18px; margin-bottom:15px; }
+    .offer-card p { color:#cfc3d2; font-size:13px; margin-bottom:14px; }
+    .offer-list { list-style:none; display:grid; gap:9px; }
+    .offer-list li { position:relative; padding-left:18px; color:#eee7ef; font-size:13px; }
+    .offer-list li::before { content:""; position:absolute; left:0; top:.65em; width:6px; height:6px; border-radius:50%; background:var(--hg-gold); }
+    .offer-list.columns { grid-template-columns:1fr 1fr; column-gap:18px; }
+    .offer-note { max-width:1100px; margin:22px auto 0; color:#aa9dad; font-size:12px; text-align:center; }
+    .contact-channels { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:22px; }
+    .contact-channel { display:flex; align-items:center; gap:10px; padding:11px 13px; border:1px solid rgba(241,212,122,.16); background:rgba(255,255,255,.035); border-radius:10px; color:#d8cfd9; text-decoration:none; font-size:12px; }
+    .contact-channel:hover { border-color:rgba(241,212,122,.45); color:#fff; }
+    .contact-channel .ui-icon { color:var(--hg-gold-light); }
+    @media(max-width:900px){ .offer-grid{grid-template-columns:1fr 1fr;} .contact-channels{grid-template-columns:1fr 1fr;} }
+    @media(max-width:600px){ .offer-grid{grid-template-columns:1fr;} .offer-list.columns{grid-template-columns:1fr;} .contact-channels{grid-template-columns:1fr;} }
+
+
+    /* DIRECT CONTACT ACTIONS */
+    .whatsapp-float {
+      position:fixed; right:24px; bottom:24px; z-index:9000;
+      width:58px; height:58px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      background:#25D366; color:#fff; text-decoration:none;
+      box-shadow:0 12px 30px rgba(37,211,102,.32), 0 4px 12px rgba(0,0,0,.22);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .whatsapp-float:hover { transform:translateY(-3px) scale(1.03); box-shadow:0 16px 34px rgba(37,211,102,.38), 0 6px 16px rgba(0,0,0,.24); }
+    .whatsapp-float .whatsapp-icon { width:29px; height:29px; fill:currentColor; }
+    .dashboard-contact {
+      position:fixed; right:22px; bottom:22px; z-index:10020;
+      display:flex; align-items:center; gap:9px;
+      padding:10px 14px 10px 10px; border-radius:999px;
+      background:#25D366; color:#fff; text-decoration:none; font-size:12px; font-weight:800;
+      box-shadow:0 12px 30px rgba(37,211,102,.28), 0 4px 12px rgba(0,0,0,.18);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .dashboard-contact:hover { transform:translateY(-2px); box-shadow:0 16px 34px rgba(37,211,102,.34), 0 6px 16px rgba(0,0,0,.2); }
+    .dashboard-contact .whatsapp-icon { width:27px; height:27px; fill:currentColor; }
+    @media(max-width:600px){
+      .whatsapp-float { right:16px; bottom:16px; width:54px; height:54px; }
+      .dashboard-contact { right:14px; bottom:14px; padding:9px 12px 9px 9px; }
+      .dashboard-contact .contact-label { display:none; }
+    }
+
+    /* MOBILE */
+    @media (max-width: 850px) {
+
+      nav ul {
+        display: none;
+      }
+
+      .services {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero {
+        padding-top: 60px;
+      }
+    }
+
+    @media (max-width: 550px) {
+
+      .nav-buttons .btn-outline {
+        display: none;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        gap: 25px;
+      }
+
+      .cta h2 {
+        font-size: 30px;
+      }
+    }
+
+    /* AUTH / DASHBOARD */
+    .modal { position: fixed; inset: 0; background: rgba(5,2,10,.82); display: none; align-items: center; justify-content: center; z-index: 11000; padding: 20px; overflow-y: auto; }
+    .modal.active { display: flex; }
+    .modal-box { width: min(720px, 100%); max-height: 92vh; overflow-y: auto; background: #160b22; border: 1px solid #3b2450; border-radius: 18px; padding: 32px; position: relative; box-shadow: 0 25px 80px rgba(0,0,0,.5); }
+    .modal-box h2 { margin-bottom: 8px; }
+    .subtitle { color: #aaa1b2; margin-bottom: 25px; }
+    .close-modal { position: absolute; right: 18px; top: 14px; border: 0; background: transparent; color: #fff; font-size: 30px; cursor: pointer; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { font-size: 13px; color: #ddd; font-weight: 600; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; border: 1px solid #3b2450; background: #0f0718; color: #fff; border-radius: 9px; padding: 12px 13px; outline: none; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #9333ea; }
+    .password-wrap { position:relative; }
+    .password-wrap input { padding-right:46px; }
+    .password-toggle { position:absolute; right:8px; top:50%; transform:translateY(-50%); border:0; background:transparent; color:#a79cac; cursor:pointer; width:34px; height:34px; border-radius:7px; font-size:16px; }
+    .password-toggle:hover { background:rgba(168,85,247,.12); color:#fff; }
+    .form-submit { width: 100%; margin-top: 22px; }
+    .form-note { color: #918898; font-size: 12px; margin-top: 8px; }
+    .subject-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .subject-option { display: flex !important; flex-direction: row !important; align-items: center; gap: 8px; padding: 10px; background: #1d102a; border: 1px solid #332040; border-radius: 8px; cursor: pointer; }
+    .subject-option input { width: auto; }
+    .success-message { display: none; margin-top: 15px; padding: 12px; border-radius: 8px; background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.35); color: #86efac; font-size: 13px; }
+    .auth-link { color: #c084fc; cursor: pointer; text-decoration: underline; }
+    /* PROFESSIONAL DASHBOARD */
+    .dashboard { position:fixed; inset:0; z-index:10000; display:none; background:#f6f7fb; color:#17131d; overflow:hidden; }
+    .dashboard.active { display:block; }
+    .dashboard-shell { display:flex; height:100%; min-height:100vh; }
+    .dash-sidebar { width:250px; flex:0 0 250px; background:#170d21; color:#fff; display:flex; flex-direction:column; padding:24px 16px; border-right:1px solid rgba(255,255,255,.06); }
+    .dash-sidebar .logo { padding:0 12px 28px; font-size:23px; }
+    .dash-sidebar .logo span { color:#a855f7; }
+    .side-label { color:#8f8498; text-transform:uppercase; letter-spacing:.08em; font-size:10px; font-weight:800; padding:0 12px 10px; }
+    .side-nav { display:flex; flex-direction:column; gap:5px; }
+    .side-nav button { width:100%; border:0; background:transparent; color:#c9c0d0; padding:12px 13px; border-radius:10px; text-align:left; cursor:pointer; font-size:13px; font-weight:600; }
+    .side-nav button:hover,.side-nav button.active { background:rgba(168,85,247,.16); color:#fff; }
+    .side-nav button span { margin-right:10px; }
+    .sidebar-bottom { margin-top:auto; }
+    .profile-mini { display:flex; gap:10px; align-items:center; padding:12px; margin-bottom:12px; background:rgba(255,255,255,.05); border-radius:12px; }
+    .avatar { width:38px; height:38px; border-radius:50%; background:#9333ea; display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff; flex:0 0 38px; }
+    .profile-mini strong { display:block; font-size:12px; }
+    .profile-mini small { color:#9e94a5; font-size:10px; }
+    .logout-dashboard { width:100%; background:#ef4444 !important; color:#fff !important; border:0 !important; box-shadow:0 6px 18px rgba(239,68,68,.22); }
+    .logout-dashboard:hover { background:#dc2626 !important; }
+    .dash-content { flex:1; min-width:0; overflow-y:auto; background:#f6f7fb; }
+    .dash-topbar { height:72px; background:#fff; border-bottom:1px solid #e8e7ec; display:flex; align-items:center; justify-content:space-between; padding:0 34px; position:sticky; top:0; z-index:4; }
+    .dash-topbar h2 { font-size:18px; margin:0; }
+    .dash-topbar p { margin:3px 0 0; color:#7d7483; font-size:12px; }
+    .topbar-user { display:flex; align-items:center; gap:10px; }
+    .topbar-user .avatar { width:34px; height:34px; flex-basis:34px; font-size:12px; }
+    .dash-main { max-width:1280px; margin:0 auto; padding:32px 34px 60px; }
+    .dash-view { display:none; }
+    .dash-view.active { display:block; }
+    .dash-hero { display:flex; justify-content:space-between; align-items:flex-end; gap:20px; margin-bottom:25px; }
+    .dash-hero .eyebrow { color:#7b6d83; font-size:12px; font-weight:700; margin-bottom:6px; }
+    .dash-hero h1 { color:#17131d; font-size:28px; margin:0 0 6px; letter-spacing:-.02em; }
+    .dash-hero p { color:#77707e; font-size:13px; margin:0; }
+    .primary-action { white-space:nowrap; }
+    .stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+    .dash-stat { background:#fff; border:1px solid #e7e4eb; border-radius:14px; padding:19px; box-shadow:0 3px 12px rgba(22,12,31,.035); }
+    .dash-stat .stat-head { display:flex; justify-content:space-between; align-items:center; color:#746a7c; font-size:12px; font-weight:700; }
+    .stat-icon { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; background:#f3e8ff; color:#7e22ce; }
+    .dash-stat .number { color:#19151d; font-size:27px; font-weight:800; margin-top:13px; }
+    .dash-stat small { color:#8b8390; font-size:11px; }
+    .dashboard-grid { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(280px,.85fr); gap:20px; }
+    .panel { background:#fff; border:1px solid #e7e4eb; border-radius:15px; box-shadow:0 3px 12px rgba(22,12,31,.035); overflow:hidden; }
+    .panel-head { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:18px 20px; border-bottom:1px solid #eeeaf1; }
+    .panel-head h3 { color:#211b26; font-size:14px; margin:0; }
+    .panel-head p { color:#8b8390; font-size:11px; margin:4px 0 0; }
+    .panel-body { padding:20px; }
+    .quick-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+    .quick-card { border:1px solid #e8e4ed; background:#faf9fc; border-radius:12px; padding:16px; cursor:pointer; text-align:left; }
+    .quick-card:hover { border-color:#c084fc; background:#fff; transform:translateY(-1px); }
+    .quick-card strong { display:block; color:#2a2230; font-size:13px; margin:8px 0 3px; }
+    .quick-card span { color:#8b8390; font-size:11px; }
+    .profile-panel .profile-cover { height:75px; background:#34203d; }
+    .profile-body { padding:0 20px 20px; }
+    .profile-large { margin-top:-24px; display:flex; align-items:flex-end; gap:12px; }
+    .profile-large .avatar { width:52px; height:52px; flex-basis:52px; border:4px solid #fff; font-size:16px; }
+    .profile-large strong { color:#211b26; font-size:14px; }
+    .profile-large small { display:block; color:#8b8390; font-size:11px; margin-top:2px; }
+    .profile-details { border-top:1px solid #eeeaf1; margin-top:16px; padding-top:14px; }
+    .detail-row { display:flex; justify-content:space-between; gap:15px; padding:8px 0; font-size:11px; }
+    .detail-row span:first-child { color:#8b8390; }
+    .detail-row span:last-child { color:#302936; font-weight:600; text-align:right; }
+    .profile-edit-btn { margin-top:16px; width:100%; background:#f3e8ff; color:#7e22ce; border:1px solid #dfc2ff; }
+    .profile-edit-btn:hover { background:#ead7ff; }
+    .assignment-list,.job-section { margin-top:0; }
+    .assignment-item,.job-item { border-bottom:1px solid #eeeaf1; padding:16px 20px; background:#fff; margin:0; border-radius:0; }
+    .assignment-item:last-child,.job-item:last-child { border-bottom:0; }
+    .assignment-item strong,.job-item strong { color:#2b2430; font-size:13px; }
+    .assignment-item-actions,.job-actions { display:flex; gap:8px; margin-top:11px; flex-wrap:wrap; }
+    .btn-small { padding:8px 12px !important; font-size:11px !important; }
+    .status-pill { padding:5px 9px; border-radius:20px; font-size:10px; font-weight:800; background:#f3e8ff; color:#7e22ce; border:1px solid #e9d5ff; }
+    .empty-state { padding:32px 20px; text-align:center; color:#8b8390; font-size:12px; }
+    .empty-state .empty-icon { font-size:28px; margin-bottom:8px; }
+    .jobs-toolbar { display:flex; gap:8px; flex-wrap:wrap; }
+    .toolbar-chip { border:1px solid #e2dfe7; background:#fff; color:#665d6d; border-radius:8px; padding:8px 11px; font-size:11px; cursor:pointer; }
+    .toolbar-chip.active { background:#f3e8ff; border-color:#d8b4fe; color:#7e22ce; font-weight:700; }
+    @media(max-width:950px){
+      .dash-sidebar{width:205px;flex-basis:205px}
+      .stat-grid{grid-template-columns:repeat(2,1fr)}
+      .dashboard-grid{grid-template-columns:1fr}
+      .hero{padding-top:55px;padding-bottom:55px}
+      .hero-visual{min-height:390px;margin-left:0;margin-top:35px}
+      .hero-photo-wrap{height:390px;width:min(100%,560px)}
+    }
+    @media(max-width:700px){
+      .dash-sidebar{width:68px;flex-basis:68px;padding:16px 8px}
+      .dash-sidebar .logo{font-size:0;text-align:center;padding:0 0 22px}
+      .dash-sidebar .logo:before{content:'H';font-size:22px;font-weight:800}
+      .side-label,.side-nav button .side-text,.profile-mini .side-text{display:none}
+      .side-nav button{text-align:center;padding:12px 8px}
+      .side-nav button span{margin:0}
+      .profile-mini{justify-content:center;padding:8px}
+      .logout-dashboard{font-size:0}
+      .logout-dashboard:after{content:'<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 17l5-5-5-5M15 12H3M21 19V5a2 2 0 0 0-2-2h-6"/></svg>';font-size:17px}
+      .dash-topbar{padding:0 18px}
+      .dash-main{padding:24px 18px 45px}
+      .dash-hero{align-items:flex-start;flex-direction:column}
+      .primary-action{width:100%}
+      .stat-grid{grid-template-columns:1fr 1fr}
+      .quick-grid{grid-template-columns:1fr}
+      .hero{display:block;padding:55px 6% 60px}
+      .hero-content{max-width:none}
+      .hero-visual{min-height:330px;margin:35px 0 0;justify-content:center}
+      .hero-photo-wrap{height:330px;width:100%;border-radius:25px;transform:none}
+    }
+    @media(max-width:480px){ .stat-grid{grid-template-columns:1fr}.dash-topbar p{display:none}.dash-hero h1{font-size:24px} }
+    .hidden { display: none !important; }
+    @media(max-width:650px){ .form-grid,.subject-grid,.dash-grid { grid-template-columns: 1fr; } .form-group.full { grid-column: auto; } .modal-box { padding: 25px 18px; } }
+
+  
+    /* Homework Genie refresh: flat plum, cream and gold palette. */
+    :root {
+      --hg-plum: #24152b;
+      --hg-plum-deep: #160d1b;
+      --hg-plum-soft: #34203d;
+      --hg-gold: #d6a83a;
+      --hg-gold-light: #f1d47a;
+      --hg-cream: #fbf8f1;
+      --hg-ink: #2a1d30;
+      --hg-muted: #766b78;
+      --hg-line: #e6dfd2;
+    }
+
+    .ui-icon {
+      width: 1.1em;
+      height: 1.1em;
+      display: inline-block;
+      vertical-align: -0.16em;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex: 0 0 auto;
+    }
+    .icon-row { display:inline-flex; align-items:center; gap:8px; }
+
+    body { background: var(--hg-plum-deep); color:#fff; }
+    nav { background: var(--hg-plum); border-bottom:1px solid rgba(241,212,122,.18); }
+    .logo { color:#fff; display:flex; align-items:center; }
+    .nav-logo { width:138px; height:72px; object-fit:contain; object-position:center; display:block; }
+    nav a { color:#ddd5df; }
+    nav a:hover { color:var(--hg-gold-light); }
+    .btn { border-radius:7px; }
+    .btn-outline { border-color:var(--hg-gold); color:#fff; }
+    .btn-outline:hover { background:rgba(214,168,58,.1); }
+    .btn-primary { background:var(--hg-gold); color:#1d1422; }
+    .btn-primary:hover { background:#bd8f25; }
+
+    .hero {
+      background:var(--hg-plum);
+      padding-top:62px;
+      padding-bottom:62px;
+    }
+    .hero-photo-wrap {
+      background:#050406;
+      border:1px solid rgba(214,168,58,.5);
+      box-shadow:0 22px 55px rgba(0,0,0,.32);
+      transform:none;
+    }
+    .hero-photo-wrap::before,
+    .hero-photo-wrap::after { display:none; }
+    .hero-photo-glow { display:none; }
+    .hero-photo { filter:none; }
+    .badge {
+      background:rgba(214,168,58,.1);
+      border:1px solid rgba(214,168,58,.45);
+      color:var(--hg-gold-light);
+      border-radius:7px;
+    }
+    .hero h1 span { color:var(--hg-gold); }
+    .hero p { color:#d8cfd9; }
+    .stat h3 { color:var(--hg-gold-light); }
+
+    section { background:var(--hg-cream); color:var(--hg-ink); }
+    .section-title p, .step p { color:var(--hg-muted); }
+    .card {
+      background:#fff;
+      border:1px solid var(--hg-line);
+      box-shadow:0 8px 24px rgba(36,21,43,.06);
+    }
+    .card:hover { border-color:#c8a04a; transform:translateY(-3px); }
+    .icon {
+      background:#f4ead0;
+      color:#76540c;
+    }
+    .card p { color:#6e6571; }
+    .step-number { background:var(--hg-plum); color:#fff; }
+    .cta {
+      background:var(--hg-plum);
+      border:1px solid #49314f;
+      border-radius:18px;
+    }
+    .cta p { color:#d8cfd9; }
+    footer { background:var(--hg-plum-deep); border-top:1px solid rgba(241,212,122,.18); }
+    footer p, .footer-links a { color:#bdb1c0; }
+
+    .dash-sidebar, .dash-topbar, .dashboard-shell { }
+    .profile-panel .profile-cover { background:#34203d; }
+
+    /* Flat UI surfaces used by the student workspace. */
+    .dashboard-shell, .dash-sidebar { background:var(--hg-plum-deep); }
+    .dash-sidebar { border-right:1px solid rgba(241,212,122,.14); }
+    .side-nav button.active, .side-nav button:hover { background:#34203d; }
+    .primary-action, .dash-nav .btn { background:var(--hg-gold) !important; border-color:var(--hg-gold) !important; color:#1d1422 !important; box-shadow:none !important; }
+    .primary-action:hover, .dash-nav .btn:hover { background:#bd8f25 !important; }
+    .modal-box { background:#211326; border-color:#49314f; }
+    .form-group input, .form-group select, .form-group textarea { background:#160d1b; border-color:#49314f; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--hg-gold); }
+
+  
+/* Production visual polish */
+.logo { display:flex; align-items:center; text-decoration:none; width:156px; height:68px; }
+.logo img { display:block; width:100%; height:100%; object-fit:contain; object-position:left center; }
+.dash-sidebar .logo { width:150px; height:72px; padding:0 0 18px; }
+.dash-sidebar .logo img { object-position:left center; }
+.btn-outline { background:var(--hg-gold) !important; border-color:var(--hg-gold) !important; color:#1d1422 !important; }
+.btn-outline:hover { background:#bd8f25 !important; border-color:#bd8f25 !important; color:#fff !important; }
+.hero h1 span { color:#fff !important; }
+.hero-photo { filter:none; }
+.hero-photo-wrap::before, .hero-photo-wrap::after { display:none; }
+
+</style>
+<!-- Homework Genie integrations: replace the placeholder IDs in HG_CONFIG below. -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+
+    <a class="logo" href="/" aria-label="Homework Genie home"><img src="/assets/homework-genie-logo-transparent.png" alt="Homework Genie"></a>
+
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#offers">What We Offer</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-buttons">
+      <button type="button" class="btn btn-outline" onclick="openModal('quote')">Request a Quote</button>
+      <button type="button" class="btn btn-outline" onclick="openModal('login')">Student Login</button>
+    </div>
+
+  </nav>
+
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="badge">
+        <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m2 9 10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c3.5 2.5 8.5 2.5 12 0v-5"/><path d="M22 9v6"/></svg> Academic support, without the runaround
+      </div>
+
+      <h1>
+        Homework help,<br>
+        <span>without the fuss.</span>
+      </h1>
+
+      <p>
+        Need a hand with an assignment, research, or exam prep? Tell us what you are working on and we will take it from there.
+      </p>
+
+      <div class="hero-buttons">
+        <button type="button" class="btn btn-primary" onclick="openModal('quote')">
+          <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg> Request a Quote
+        </button>
+        <button type="button" class="btn btn-outline" onclick="openExistingClientJourney()">
+          <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.4 11.6-8.9 8.9a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 1 1-2.8-2.8l8.5-8.5"/></svg> Submit an Assignment
+        </button>
+      </div>
+      <p class="form-note" style="margin-top:12px">No account required to request a quote. Already a client? <button type="button" class="auth-link" style="background:none;border:0;padding:0" onclick="openModal('login')">Log in</button></p>
+
+      <div class="stats">
+
+        <div class="stat">
+          <h3>24/7</h3>
+          <p>Support</p>
+        </div>
+
+        <div class="stat">
+          <h3>100%</h3>
+          <p>Online</p>
+        </div>
+
+        <div class="stat">
+          <h3>1:1</h3>
+          <p>Academic Support</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="hero-visual" aria-label="Students collaborating on academic work">
+      <div class="hero-photo-wrap">
+        <img class="hero-photo" src="/assets/hero-academic.webp" alt="Two students collaborating on a laptop in a school hallway">
+        <div class="hero-photo-glow"></div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- SERVICES -->
+  <section id="services">
+
+    <div class="section-title">
+
+      <h2>A practical hand when you need one</h2>
+
+      <p>
+        Some assignments are straightforward. Others take a little more time. Homework Genie gives you a place to ask for help, share your work, and keep track of what happens next.
+      </p>
+
+    </div>
+
+    <div class="services">
+
+      <div class="card">
+        <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></div>
+        <h3>Assignment Support</h3>
+        <p>
+          Work through an assignment with clear guidance and useful feedback.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3h6M10 3v6l-5.5 9.2A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.8L14 9V3"/><path d="M8 14h8"/></svg></div>
+        <h3>Research Support</h3>
+        <p>
+          Get a second pair of eyes on sources, structure, and research notes.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4 20 4.5-1 9.8-9.8a2.1 2.1 0 0 0-3-3L5.5 16 4 20Z"/><path d="m13.5 7.5 3 3"/></svg></div>
+        <h3>Proofreading</h3>
+        <p>
+          Clean up grammar, structure, and wording before you submit.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="m16.5 7.5 4-4M18 3h2v2"/></svg></div>
+        <h3>Exam Preparation</h3>
+        <p>
+          Review key topics, practise questions, and get ready for the next test.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 18h6M10 22h4"/><path d="M8 14a6 6 0 1 1 8 0c-1 1-2 2-2 4h-4c0-2-1-3-2-4Z"/></svg></div>
+        <h3>Project Guidance</h3>
+        <p>
+          Break a larger project into manageable pieces and keep the work moving.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="7" r="4"/><path d="M5 21a7 7 0 0 1 14 0M17 11v6M20 14h-6"/></svg></div>
+        <h3>Personalized Tutoring</h3>
+        <p>
+          Ask for one-to-one help around the subject or task you are working on.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- WHAT WE OFFER -->
+  <section id="offers" class="offer-section">
+    <div class="section-title">
+      <h2>More ways Homework Genie can help</h2>
+      <p>From classes and exams to subject-specific assignments, we cover a wide range of academic support needs.</p>
+    </div>
+
+    <div class="offer-grid">
+      <article class="offer-card">
+        <h3>Exams &amp; Classes</h3>
+        <ul class="offer-list">
+          <li>Sophia course</li>
+          <li>Capella FlexPath and Guided</li>
+          <li>Penn Foster High School Diploma</li>
+        </ul>
+      </article>
+
+      <article class="offer-card">
+        <h3>Assignments</h3>
+        <ul class="offer-list columns">
+          <li>Accounting</li>
+          <li>Physics</li>
+          <li>Finance</li>
+          <li>Law</li>
+          <li>Management</li>
+          <li>History</li>
+          <li>Economics</li>
+          <li>English</li>
+          <li>Business Studies</li>
+          <li>Literature</li>
+          <li>Operations Management</li>
+          <li>Dissertations</li>
+          <li>Mathematics</li>
+          <li>Algebra</li>
+          <li>Trigonometry</li>
+          <li>Statistics</li>
+          <li>Probability</li>
+        </ul>
+      </article>
+
+      <article class="offer-card">
+        <h3>All You Need</h3>
+        <ul class="offer-list columns">
+          <li>Essays</li>
+          <li>Research Papers</li>
+          <li>Exams &amp; Quizzes</li>
+          <li>Assignment Posts</li>
+          <li>Assignment Due</li>
+          <li>Online Classes</li>
+          <li>Lab Reports</li>
+        </ul>
+      </article>
+    </div>
+    <p class="offer-note">Tell us what you are working on and we can confirm the available support, scope, price and deadline before you proceed.</p>
+  </section>
+
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+
+    <div class="section-title">
+
+      <h2>How it works</h2>
+
+      <p>
+        A short process keeps things clear.
+      </p>
+
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+
+        <div class="step-number">1</div>
+
+        <h3>Request</h3>
+
+        <p>
+          Tell us what you need help with. No account is required.
+        </p>
+
+      </div>
+
+      <div class="step">
+
+        <div class="step-number">2</div>
+
+        <h3>Quote</h3>
+
+        <p>
+          Homework Genie reviews your request and sends a quotation.
+        </p>
+
+      </div>
+
+      <div class="step">
+
+        <div class="step-number">3</div>
+
+        <h3>Confirm</h3>
+
+        <p>
+          Accept your quotation and complete payment.
+        </p>
+
+      </div>
+
+      <div class="step">
+
+        <div class="step-number">4</div>
+
+        <h3>Support</h3>
+
+        <p>
+          Homework Genie works on your request and keeps you updated.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ABOUT -->
+  <section id="about">
+
+    <div class="section-title">
+
+      <h2>Why students use it</h2>
+
+      <p>
+        You tell us what you need, we review it, and you get a clear quote before anything moves forward.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+  <div class="cta">
+
+    <h2>Have something you are working on?</h2>
+
+    <p>
+      Send the details and let us know what you are working on. We will review the request and get back to you.
+    </p>
+
+    <button type="button" class="btn btn-primary" onclick="openModal('quote')">
+      Request a Quote →
+    </button>
+
+  </div>
+
+
+  <!-- GUEST QUOTE REQUEST -->
+  <div class="modal" id="quoteModal" onclick="closeOnBackdrop(event, 'quoteModal')">
+    <div class="modal-box" style="max-width:760px">
+      <button class="close-modal" onclick="closeModal('quoteModal')">&times;</button>
+      <h2>Request a Quote</h2>
+      <p class="subtitle">Tell us what you need help with and we'll review your request and send you a quotation. <strong>No account is required.</strong></p>
+      <form id="quoteForm">
+        <div class="form-grid">
+          <div class="form-group"><label>Full Name *</label><input name="name" required placeholder="Your full name"></div>
+          <div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="you@example.com"></div>
+          <div class="form-group"><label>WhatsApp / Phone *</label><input type="tel" name="phone" required placeholder="e.g. +1 917 000 0000"></div>
+          <div class="form-group"><label>Service Required *</label><select name="service" required><option value="">Select a service</option><option>Assignment Support</option><option>Research Support</option><option>Proofreading</option><option>Exam Preparation</option><option>Project Guidance</option><option>Personalized Tutoring</option></select></div>
+          <div class="form-group"><label>Subject / Course *</label><input name="subject" required placeholder="e.g. Biology 101"></div>
+          <div class="form-group"><label>Assignment / Project Title *</label><input name="title" required placeholder="Title of your work"></div>
+          <div class="form-group"><label>Deadline *</label><input type="datetime-local" name="deadline" required></div>
+          <div class="form-group"><label>Estimated Pages / Length</label><input name="length" placeholder="e.g. 8 pages / 2,000 words"></div>
+          <div class="form-group full"><label>Description *</label><textarea name="description" rows="4" required placeholder="Explain the assignment, requirements and the support you need."></textarea></div>
+          <div class="form-group full"><label>File Attachments</label><input type="file" name="files" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.zip"></div>
+          <div class="form-group full"><label>Additional Instructions</label><textarea name="instructions" rows="3" placeholder="Anything else we should know?"></textarea></div>
+        </div>
+        <button type="submit" class="btn btn-primary form-submit">Send Quote Request</button>
+        <div class="success-message" id="quoteSuccess"></div>
+        <p class="form-note">Your request is securely sent to Homework Genie for review. No account is required.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- STUDENT AUTHENTICATION -->
+  <div class="modal" id="studentModal" onclick="closeOnBackdrop(event, 'studentModal')">
+    <div class="modal-box">
+      <button class="close-modal" onclick="closeModal('studentModal')">&times;</button>
+      <h2>Create Student Account</h2>
+      <p class="subtitle">Create an account to manage quotes, invoices, assignments and completed files.</p>
+      <form id="studentSignupForm">
+        <div class="form-grid">
+          <div class="form-group"><label>Full Name *</label><input type="text" name="name" required placeholder="Your full name"></div>
+          <div class="form-group"><label>Phone Number *</label><input type="tel" name="phone" required placeholder="e.g. +254 700 000 000"></div>
+          <div class="form-group full"><label>Gmail Address *</label><input type="email" name="email" required placeholder="yourname@gmail.com"></div>
+          <div class="form-group"><label>Password *</label><div class="password-wrap"><input id="signupPassword" type="password" name="password" minlength="6" required placeholder="At least 6 characters"><button type="button" class="password-toggle" onclick="togglePassword('signupPassword',this)" aria-label="Show password"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div></div>
+          <div class="form-group"><label>Confirm Password *</label><div class="password-wrap"><input id="signupConfirmPassword" type="password" name="confirmPassword" minlength="6" required placeholder="Repeat password"><button type="button" class="password-toggle" onclick="togglePassword('signupConfirmPassword',this)" aria-label="Show password"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div></div>
+          <div class="form-group full"><label>Education Level *</label><select name="education" required><option value="">Select education level</option><option>High school diploma</option><option>Associate degree</option><option>Bachelor degree</option><option>Master’s degree</option><option>PhD</option></select></div>
+        </div>
+        <div id="googleSignupButton" style="display:none"></div>
+        <button type="submit" class="btn btn-primary form-submit">Create Student Account</button>
+        <p class="form-note" style="text-align:center">Already have an account? <span class="auth-link" onclick="switchToLogin()">Log in</span></p>
+        <div class="success-message" id="studentSuccess"></div>
+      </form>
+    </div>
+  </div>
+  <div class="modal" id="loginModal" onclick="closeOnBackdrop(event, 'loginModal')">
+    <div class="modal-box" style="max-width:480px">
+      <button class="close-modal" onclick="closeModal('loginModal')">&times;</button>
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Log in to your Homework Genie account.</p>
+      <form id="loginForm">
+        <div class="form-group" style="margin-bottom:15px"><label>Email *</label><input type="email" name="email" required placeholder="yourname@gmail.com"></div>
+        <div class="form-group"><label>Password *</label><div class="password-wrap"><input id="loginPassword" type="password" name="password" required placeholder="Your password"><button type="button" class="password-toggle" onclick="togglePassword('loginPassword',this)" aria-label="Show password"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div></div>
+        <div id="googleLoginButton" style="display:none"></div>
+        <button type="submit" class="btn btn-primary form-submit">Log In</button>
+        <p class="form-note" style="text-align:right;margin-top:10px"><span class="auth-link" onclick="openForgotPassword()">Forgot Password?</span></p>
+        <div class="success-message" id="loginError" style="background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:#fca5a5"></div>
+        <p class="form-note" style="text-align:center">Don't have an account? <span class="auth-link" onclick="switchToStudent()">Create a Student Account</span></p>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="modal" id="forgotPasswordModal" onclick="closeOnBackdrop(event, 'forgotPasswordModal')">
+    <div class="modal-box" style="max-width:480px">
+      <button class="close-modal" type="button" onclick="closeModal('forgotPasswordModal')">&times;</button>
+      <h2>Reset Your Password</h2>
+      <p class="subtitle">Enter the email address linked to your Homework Genie account.</p>
+      <form id="forgotPasswordForm">
+        <div class="form-group"><label>Email Address *</label><input type="email" id="resetEmail" required placeholder="you@example.com"></div>
+        <button type="submit" class="btn btn-primary form-submit">Send Reset Link</button>
+        <div class="success-message" id="resetSuccess"></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="paypalModal" style="z-index:20000" onclick="closeOnBackdrop(event, 'paypalModal')">
+    <div class="modal-box" style="max-width:520px">
+      <button class="close-modal" onclick="closeModal('paypalModal')">&times;</button>
+      <h2>Invoice Payment</h2>
+      <p class="subtitle">Payment is based on the quotation and invoice issued for your request.</p>
+      <div class="panel-body" style="margin:15px 0;padding:15px;border-radius:12px;background:#faf7fc">
+        <div style="display:flex;justify-content:space-between;gap:12px"><strong>Academic Assistance</strong><strong id="paypalAmountLabel">Quote amount pending</strong></div>
+        <small id="paypalAssignmentLabel" style="display:block;margin-top:7px;color:#777">A production invoice will provide the final amount and available payment methods. PayPal is retained as the current frontend payment foundation.</small>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+        <button type="button" class="btn btn-primary form-submit" id="openPayPalLinkBtn" onclick="openClientPayPal()"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg> Open PayPal</button>
+        <button type="button" class="btn form-submit" id="confirmPayPalBtn" onclick="confirmPayPalPayment()" style="background:#f1e9f8;color:#4b2670"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg> Report Payment Completed</button>
+      </div>
+      <div class="success-message" id="paypalStatus"></div>
+    </div>
+  </div>
+
+  <div class="dashboard" id="dashboard">
+  <a class="dashboard-contact" href="https://wa.me/19176404768?text=Hello%20Homework%20Genie%2C%20I%20am%20logged%20in%20and%20I%20have%20a%20question." target="_blank" rel="noopener noreferrer" aria-label="Ask Homework Genie a question on WhatsApp">
+    <svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7c1.7.9 3.5 1.3 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.3-6.1-3.5-8.3ZM12.1 21.4h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.9 1 1-3.8-.2-.3a9.7 9.7 0 0 1-1.5-5.1c0-5.4 4.4-9.7 9.8-9.7 2.6 0 5.1 1 6.9 2.8a9.7 9.7 0 0 1 2.9 6.9c0 5.3-4.4 9.7-9.8 9.7Zm5.3-7.3c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.1-1.3-.5-2.5-1.6-.9-.8-1.6-1.8-1.8-2.1-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.5 0-.7-.1-.2-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.1 3.1 1.2 3.3c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/></svg>
+    <span class="contact-label">Ask us on WhatsApp</span>
+  </a>
+    <div class="dashboard-shell">
+      <aside class="dash-sidebar">
+        <a class="logo" href="/" aria-label="Homework Genie dashboard home"><img src="/assets/homework-genie-logo-transparent.png" alt="Homework Genie"></a>
+        <div class="side-label">Workspace</div>
+        <div class="side-nav" id="studentSideNav">
+          <button class="active" onclick="switchDashView('studentOverview',this)"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7v10H3Z"/><path d="M9 20v-6h6v6"/></svg></span><span class="side-text">Overview</span></button>
+          <button onclick="switchDashView('studentRequests',this)"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg></span><span class="side-text">My Requests</span></button>
+          <button onclick="switchDashView('studentAssignments',this)"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></span><span class="side-text">My Assignments</span></button>
+          <button onclick="switchDashView('studentQuotes',this)"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11H8l-4 4V5Z"/><path d="M8 9h8M8 12h5"/></svg></span><span class="side-text">My Quotes</span></button>
+          <button onclick="switchDashView('studentInvoices',this)"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span><span class="side-text">My Invoices</span></button>
+          <button onclick="switchDashView('studentFiles',this)"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6Z"/></svg></span><span class="side-text">My Files</span></button>
+          <button onclick="switchDashView('studentNotifications',this)"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></span><span class="side-text">Notifications</span></button>
+          <button onclick="openAssignment()"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span><span class="side-text">Submit Assignment</span></button>
+          <button onclick="switchDashView('studentProfileView',this)"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><span class="side-text">My Profile</span></button>
+        </div>
+        <div class="sidebar-bottom">
+          <div class="profile-mini"><div class="avatar" id="sideAvatar">HG</div><div class="side-text"><strong id="sideName">User</strong><small id="sideRole">Account</small></div></div>
+          <button class="btn logout-dashboard" onclick="logout()"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 17l5-5-5-5M15 12H3M21 19V5a2 2 0 0 0-2-2h-6"/></svg> <span class="side-text">Log Out</span></button>
+        </div>
+      </aside>
+
+      <div class="dash-content">
+        <header class="dash-topbar">
+          <div><h2 id="topbarTitle">Dashboard</h2><p id="topbarSubtitle">Your academic workspace</p></div>
+          <div class="topbar-user"><span id="topbarUserName" style="font-size:12px;font-weight:700;color:#4b4351"></span><div class="avatar" id="topAvatar">HG</div></div>
+        </header>
+
+        <main class="dash-main">
+          <!-- STUDENT -->
+          <section id="studentDashboard" class="hidden">
+            <div id="studentOverview" class="dash-view active">
+              <div class="dash-hero"><div><div class="eyebrow">STUDENT WORKSPACE</div><h1 id="studentWelcome">Welcome!</h1><p>Stay on top of your assignments and get the academic support you need.</p></div><button class="btn btn-primary primary-action" onclick="openAssignment()"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg> Submit Assignment</button></div>
+              <div class="stat-grid">
+                <div class="dash-stat"><div class="stat-head"><span>Total Assignments</span><span class="stat-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></span></div><div class="number" id="studentTotalCount">0</div><small>All requests and submissions</small></div>
+                <div class="dash-stat"><div class="stat-head"><span>Pending</span><span class="stat-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span></div><div class="number" id="studentPendingCount">0</div><small>Awaiting review</small></div>
+                <div class="dash-stat"><div class="stat-head"><span>In Progress</span><span class="stat-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg></span></div><div class="number" id="studentProgressCount">0</div><small>Currently supported</small></div>
+                <div class="dash-stat"><div class="stat-head"><span>Completed</span><span class="stat-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg></span></div><div class="number" id="studentCompletedCount">0</div><small>Finished assignments</small></div>
+              </div>
+              <div class="dashboard-grid">
+                <div class="panel"><div class="panel-head"><div><h3>Recent Assignments</h3><p>Your latest submissions</p></div><button class="toolbar-chip" onclick="switchDashView('studentAssignments',null)">View all</button></div><div id="studentRecentList"></div></div>
+                <div class="panel profile-panel"><div class="profile-cover"></div><div class="profile-body"><div class="profile-large"><div class="avatar" id="studentProfileAvatar">HG</div><div><strong id="studentProfileName">Student</strong><small id="studentProfileEducation">Education</small></div></div><div class="profile-details"><div class="detail-row"><span>Email</span><span id="studentProfileEmail">—</span></div><div class="detail-row"><span>Phone</span><span id="studentProfilePhone">—</span></div><div class="detail-row"><span>Education</span><span id="studentProfileLevel">—</span></div></div><button type="button" class="btn profile-edit-btn" onclick="openProfileEdit(); return false;"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4 20 4.5-1 9.8-9.8a2.1 2.1 0 0 0-3-3L5.5 16 4 20Z"/><path d="m13.5 7.5 3 3"/></svg> Edit Profile</button></div></div>
+              </div>
+              <div class="panel" style="margin-top:20px"><div class="panel-head"><div><h3>Quick Actions</h3><p>Manage your request and order journey</p></div></div><div class="panel-body"><div class="quick-grid"><button class="quick-card" onclick="openAssignment()"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.4 11.6-8.9 8.9a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 1 1-2.8-2.8l8.5-8.5"/></svg></span><strong>Submit an Assignment</strong><span>Send details for a quotation.</span></button><button class="quick-card" onclick="switchDashView('studentQuotes',null)"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11H8l-4 4V5Z"/><path d="M8 9h8M8 12h5"/></svg></span><strong>View My Quotes</strong><span>Review, accept or request changes to quotes.</span></button></div></div></div>
+            </div>
+
+            <div id="studentAssignments" class="dash-view"><div class="dash-hero"><div><div class="eyebrow">MY WORK</div><h1>My Assignments</h1><p>Track everything you have submitted to Homework Genie.</p></div><button class="btn btn-primary primary-action" onclick="openAssignment()"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg> New Assignment</button></div><div class="panel"><div class="panel-head"><div><h3>Assignment History</h3><p>Newest submissions appear first</p></div></div><div id="assignmentList"></div></div></div>
+
+            <div id="studentRequests" class="dash-view"><div class="dash-hero"><div><div class="eyebrow">MY REQUESTS</div><h1>My Requests</h1><p>Track quote requests and submitted assignments.</p></div><button class="btn btn-primary primary-action" onclick="openAssignment()"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg> New Request</button></div><div class="panel"><div id="requestList" class="empty-state"><div class="empty-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg></div><strong>No requests yet</strong><div>Your quote requests will appear here.</div></div></div></div>
+
+            <div id="studentQuotes" class="dash-view"><div class="dash-hero"><div><div class="eyebrow">MY QUOTES</div><h1>My Quotes</h1><p>Review quotations and choose what to do next.</p></div></div><div class="panel"><div id="quoteList" class="empty-state"><div class="empty-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11H8l-4 4V5Z"/><path d="M8 9h8M8 12h5"/></svg></div><strong>No quotes yet</strong><div>Quotes sent by Homework Genie will appear here.</div></div></div></div>
+
+            <div id="studentInvoices" class="dash-view"><div class="dash-hero"><div><div class="eyebrow">MY INVOICES</div><h1>My Invoices</h1><p>View unpaid and paid invoices.</p></div></div><div class="panel"><div id="invoiceList" class="empty-state"><div class="empty-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div><strong>No invoices yet</strong><div>Invoices will appear here after a quote is accepted.</div></div></div></div>
+
+            <div id="studentFiles" class="dash-view"><div class="dash-hero"><div><div class="eyebrow">MY FILES</div><h1>My Files</h1><p>Access uploaded and completed files.</p></div></div><div class="panel"><div class="empty-state"><div class="empty-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6Z"/></svg></div><strong>No completed files yet</strong><div>Completed work will be securely delivered here.</div></div></div></div>
+
+            <div id="studentNotifications" class="dash-view"><div class="dash-hero"><div><div class="eyebrow">NOTIFICATIONS</div><h1>Notifications</h1><p>Quotes, payment reminders and order updates.</p></div></div><div class="panel"><div class="empty-state"><div class="empty-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></div><strong>No notifications yet</strong><div>Important updates will appear here.</div></div></div></div>
+
+            <div id="studentProfileView" class="dash-view"><div class="dash-hero"><div><div class="eyebrow">ACCOUNT</div><h1>My Profile</h1><p>View your account information.</p></div></div><div class="panel profile-panel"><div class="profile-cover"></div><div class="profile-body"><div class="profile-large"><div class="avatar" id="studentProfileAvatar2">HG</div><div><strong id="studentProfileName2">Student</strong><small id="studentProfileEducation2">Education</small></div></div><div class="profile-details"><div class="detail-row"><span>Full name</span><span id="studentProfileNameDetail">—</span></div><div class="detail-row"><span>Email</span><span id="studentProfileEmail2">—</span></div><div class="detail-row"><span>Phone</span><span id="studentProfilePhone2">—</span></div><div class="detail-row"><span>Education level</span><span id="studentProfileLevel2">—</span></div></div><button type="button" class="btn profile-edit-btn" onclick="openProfileEdit(); return false;"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4 20 4.5-1 9.8-9.8a2.1 2.1 0 0 0-3-3L5.5 16 4 20Z"/><path d="m13.5 7.5 3 3"/></svg> Edit Profile</button></div></div></div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="profileEditModal" style="z-index:10001;" onclick="closeOnBackdrop(event, 'profileEditModal')">
+    <div class="modal-box" style="max-width:560px">
+      <button class="close-modal" onclick="closeModal('profileEditModal')">&times;</button>
+      <h2>Edit Your Profile</h2>
+      <p class="subtitle">Update the information connected to your Homework Genie account.</p>
+      <form id="profileEditForm">
+        <div class="form-grid">
+          <div class="form-group full"><label>Full Name *</label><input type="text" id="editName" name="name" required></div>
+          <div class="form-group"><label>Phone Number *</label><input type="tel" id="editPhone" name="phone" required></div>
+          <div class="form-group"><label>Education Level *</label><select id="editEducation" name="education" required><option value="">Select education level</option><option>High school diploma</option><option>Associate degree</option><option>Bachelor degree</option><option>Master’s degree</option><option>PhD</option></select></div>
+          <div class="form-group full"><label>Gmail Address</label><input type="email" id="editEmail" name="email" disabled></div>
+        </div>
+        <button type="submit" class="btn btn-primary form-submit">Save Changes</button>
+        <div class="success-message" id="profileEditSuccess"></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="assignmentModal" onclick="closeOnBackdrop(event, 'assignmentModal')">
+    <div class="modal-box" style="max-width:760px">
+      <button class="close-modal" onclick="closeModal('assignmentModal')">&times;</button>
+      <h2>Submit an Assignment</h2><p class="subtitle">For existing clients. Submit the details we need to prepare your quotation.</p>
+      <form id="assignmentForm">
+        <div class="form-grid">
+          <div class="form-group"><label>Service *</label><select id="assignmentService" required><option value="">Select a service</option><option>Assignment Support</option><option>Research Support</option><option>Proofreading</option><option>Exam Preparation</option><option>Project Guidance</option><option>Personalized Tutoring</option></select></div>
+          <div class="form-group"><label>Subject / Course *</label><input id="assignmentSubject" required placeholder="e.g. Economics 201"></div>
+          <div class="form-group"><label>Assignment / Project Title *</label><input id="assignmentTitle" required placeholder="Title of your work"></div>
+          <div class="form-group"><label>Deadline *</label><input id="assignmentDeadline" type="datetime-local" required></div>
+          <div class="form-group"><label>Preferred Delivery Date / Time</label><input id="assignmentDelivery" type="datetime-local"></div>
+          <div class="form-group"><label>Budget (if applicable)</label><input id="assignmentBudget" placeholder="e.g. $75"></div>
+          <div class="form-group full"><label>Assignment File *</label><input type="file" id="assignmentFile" required accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.zip"></div>
+          <div class="form-group full"><label>Description *</label><textarea id="assignmentDescription" rows="4" required placeholder="Assignment requirements and the kind of support you need..."></textarea></div>
+          <div class="form-group full"><label>Additional Instructions</label><textarea id="assignmentInstructions" rows="3" placeholder="Anything else we should know?"></textarea></div>
+        </div>
+        <div class="form-note">Maximum recommended size: 20 MB. Files are uploaded securely to Homework Genie for review. Maximum 20 MB per file.</div>
+        <button type="submit" class="btn btn-primary form-submit" id="assignmentSubmitBtn">Submit for Quote</button>
+        <div class="success-message" id="assignmentSuccess"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    /* ================= HOMEWORK GENIE INTEGRATIONS =================
+       1) PayPal: payments use the client's PayPal payment page link. No PayPal login or API credentials are required.
+       2) Google: create a Google OAuth Web Client ID and paste it below.
+       3) EmailJS: create an EmailJS public key/service/template for confirmation,
+          password reset and status emails. These are frontend-only helpers; a real
+          production password reset must ultimately be handled by a backend.
+    */
+    const HG_CONFIG = {
+      paypalLink: 'https://www.paypal.biz/Hwgenie',
+      paypalCurrency: 'USD',
+      googleClientId: 'REPLACE_WITH_GOOGLE_CLIENT_ID',
+      emailjsPublicKey: 'REPLACE_WITH_EMAILJS_PUBLIC_KEY',
+      emailjsServiceId: 'REPLACE_WITH_EMAILJS_SERVICE_ID',
+      emailjsSubmissionTemplateId: 'REPLACE_WITH_SUBMISSION_TEMPLATE_ID',
+      emailjsResetTemplateId: 'REPLACE_WITH_RESET_TEMPLATE_ID',
+      emailjsStatusTemplateId: 'REPLACE_WITH_STATUS_TEMPLATE_ID'
+    };
+
+    const API_BASE = window.HG_API_BASE || '/api';
+    const SESSION_TOKEN_KEY = 'homeworkGenieApiToken';
+    let API_USER = null;
+    async function api(path, options={}){
+      const headers=Object.assign({'Content-Type':'application/json'}, options.headers||{});
+      const t=localStorage.getItem(SESSION_TOKEN_KEY); if(t) headers.Authorization='Bearer '+t;
+      const res=await fetch(API_BASE+path,{...options,headers});
+      const data=await res.json().catch(()=>({}));
+      if(!res.ok) throw new Error(data.error||'Request failed');
+      return data;
+    }
+    function normalizeEmail(e){ return String(e||'').trim().toLowerCase(); }
+    async function fileToPayload(file){
+      const buf=await file.arrayBuffer(); let binary=''; const bytes=new Uint8Array(buf); const chunk=0x8000;
+      for(let i=0;i<bytes.length;i+=chunk) binary+=String.fromCharCode(...bytes.subarray(i,i+chunk));
+      return {name:file.name,size:file.size,type:file.type,data:btoa(binary)};
+    }
+    function loginUser(user,token){ API_USER=user; if(token)localStorage.setItem(SESSION_TOKEN_KEY,token); showDashboard(user); }
+    async function refreshUser(){ try{const r=await api('/me'); API_USER=r.user; return r.user;}catch{API_USER=null;return null;} }
+    function currentUser(){ return API_USER; }
+    function logout(){ localStorage.removeItem(SESSION_TOKEN_KEY); API_USER=null; document.getElementById('dashboard').classList.remove('active'); document.body.style.overflow=''; }
+
+    function openModal(type){
+      const ids = {
+        student: 'studentModal',
+        assignment: 'assignmentModal',
+        login: 'loginModal',
+        profileEdit: 'profileEditModal',
+        forgotPassword: 'forgotPasswordModal',
+        paypal: 'paypalModal',
+        quote: 'quoteModal'
+      };
+      const id = ids[type] || 'loginModal';
+      const el = document.getElementById(id);
+      if(el){ el.classList.add('active'); document.body.style.overflow='hidden'; }
+    }
+    function closeModal(id){ const el=document.getElementById(id); if(el) el.classList.remove('active'); if(!document.querySelector('.modal.active')) document.body.style.overflow=''; }
+    function closeOnBackdrop(e,id){ if(e.target.id===id) closeModal(id); }
+    function switchToLogin(){ closeModal('studentModal'); openModal('login'); }
+    function switchToStudent(){ closeModal('loginModal'); openModal('student'); }
+
+    function openExistingClientJourney(){
+      const user=currentUser();
+      if(user && user.role==='student'){ openAssignment(); return; }
+      alert('This is for existing clients. Please log in first, then submit your assignment from the dashboard. New students can request a quote without creating an account.');
+      openModal('login');
+    }
+
+    async function createAccount(e){
+      e.preventDefault(); const form=e.target; const data=new FormData(form);
+      try{
+        const r=await api('/auth/register',{method:'POST',body:JSON.stringify({name:data.get('name'),phone:data.get('phone'),email:data.get('email'),password:data.get('password'),education:data.get('education')})});
+        const success=document.getElementById('studentSuccess'); success.textContent='Account created successfully. Opening your dashboard...'; success.style.display='block';
+        setTimeout(()=>{ closeModal('studentModal'); form.reset(); success.style.display='none'; loginUser(r.user,r.token); },300);
+      }catch(err){ alert(err.message); }
+    }
+
+    function initials(name){ return String(name||'HG').split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase(); }
+    function switchDashView(id, button){
+      document.querySelectorAll('.dash-view').forEach(v=>v.classList.remove('active'));
+      const target=document.getElementById(id); if(target) target.classList.add('active');
+      const nav=button ? button.parentElement : null;
+      if(nav) nav.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+      if(button) button.classList.add('active');
+      const titles={studentOverview:['Dashboard','Your academic workspace'],studentAssignments:['My Assignments','Track your submitted work'],studentProfileView:['My Profile','Your account information'],studentRequests:['My Requests','Quote requests and submissions'],studentQuotes:['My Quotes','Review quotations'],studentInvoices:['My Invoices','View invoices and payment status'],studentFiles:['My Files','Uploaded and completed files'],studentNotifications:['Notifications','Updates from Homework Genie']};
+      const t=titles[id]||['Dashboard','Your workspace']; document.getElementById('topbarTitle').textContent=t[0]; document.getElementById('topbarSubtitle').textContent=t[1];
+    }
+    function showDashboard(user){
+      if(user.role!=='student'){ alert('This website is currently student-focused. Please create or use a Student account.'); return; }
+      document.getElementById('dashboard').classList.add('active'); document.body.style.overflow='hidden';
+      document.getElementById('studentDashboard').classList.remove('hidden');
+      const init=initials(user.name); ['sideAvatar','topAvatar','studentProfileAvatar','studentProfileAvatar2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=init;});
+      document.getElementById('sideName').textContent=user.name; document.getElementById('sideRole').textContent='Student'; document.getElementById('topbarUserName').textContent=user.name;
+      document.getElementById('studentWelcome').textContent='Welcome, '+user.name+'!';
+      document.getElementById('studentProfileName').textContent=user.name; document.getElementById('studentProfileEducation').textContent=user.education;
+      document.getElementById('studentProfileEmail').textContent=user.email; document.getElementById('studentProfilePhone').textContent=user.phone; document.getElementById('studentProfileLevel').textContent=user.education;
+      document.getElementById('studentProfileName2').textContent=user.name; document.getElementById('studentProfileEducation2').textContent=user.education; document.getElementById('studentProfileNameDetail').textContent=user.name; document.getElementById('studentProfileEmail2').textContent=user.email; document.getElementById('studentProfilePhone2').textContent=user.phone; document.getElementById('studentProfileLevel2').textContent=user.education;
+      renderAssignments(user.id); renderRequests(user); switchDashView('studentOverview',document.querySelector('#studentSideNav button'));
+    }
+
+    document.getElementById('studentSignupForm').addEventListener('submit',createAccount);
+    document.getElementById('loginForm').addEventListener('submit',async e=>{
+      e.preventDefault(); const data=new FormData(e.target);
+      try{ const r=await api('/auth/login',{method:'POST',body:JSON.stringify({email:data.get('email'),password:data.get('password')})}); e.target.reset(); document.getElementById('loginError').style.display='none'; closeModal('loginModal'); loginUser(r.user,r.token); }
+      catch(err){ const el=document.getElementById('loginError');el.textContent=err.message;el.style.display='block'; }
+    });
+
+    function togglePassword(inputId,button){
+      const input=document.getElementById(inputId);
+      if(!input) return;
+      const showing=input.type==='text';
+      input.type=showing?'password':'text';
+      button.innerHTML=showing
+        ? '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg>'
+        : '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m3 3 18 18"/><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a17.5 17.5 0 0 1-3.1 3.9"/><path d="M6.1 6.1C3.4 8 2 12 2 12s3.5 7 10 7c1 0 1.9-.1 2.8-.4"/></svg>';
+      button.setAttribute('aria-label',showing?'Show password':'Hide password');
+    }
+
+    function openProfileEdit(){
+      const user=currentUser();
+      if(!user || user.role!=='student'){
+        alert('Please log in as a student.');
+        return false;
+      }
+
+      // Close any other modal first so Login can never appear over Profile Edit.
+      document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+
+      // Load the CURRENT logged-in student's existing information into the edit form.
+      document.getElementById('editName').value = user.name || '';
+      document.getElementById('editPhone').value = user.phone || '';
+      document.getElementById('editEmail').value = user.email || '';
+      document.getElementById('editEducation').value = user.education || 'College';
+      document.getElementById('profileEditSuccess').style.display = 'none';
+
+      // Open this modal directly — do NOT route through the Login modal.
+      const modal = document.getElementById('profileEditModal');
+      modal.classList.add('active');
+      modal.style.zIndex = '10001';
+      document.body.style.overflow = 'hidden';
+      return false;
+    }
+
+    document.getElementById('profileEditForm').addEventListener('submit',async e=>{
+      e.preventDefault(); const user=currentUser(); if(!user)return; const data=new FormData(e.target);
+      try{ const r=await api('/student/profile',{method:'PUT',body:JSON.stringify({name:data.get('name'),phone:data.get('phone'),education:data.get('education')})}); API_USER=r.user; showDashboard(r.user); const msg=document.getElementById('profileEditSuccess'); msg.textContent='<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg> Profile updated successfully.'; msg.style.display='block'; setTimeout(()=>{closeModal('profileEditModal');msg.style.display='none';},700); }catch(err){alert(err.message);}
+    });
+
+    function openAssignment(){ if(currentUser()?.role!=='student'){alert('Please log in as an existing client.');return;} openModal('assignment'); }
+    let pendingAssignment = null;
+
+    document.getElementById('quoteForm').addEventListener('submit', async e=>{
+      e.preventDefault();
+      const form=e.target, data=new FormData(form); const input=form.querySelector('input[name="files"]'); const files=[...(input?.files||[])];
+      if(files.some(f=>f.size>20*1024*1024)){ alert('Each file should be smaller than 20 MB.'); return; }
+      try{
+        const payload={name:data.get('name'),email:data.get('email'),phone:data.get('phone'),service:data.get('service'),subject:data.get('subject'),title:data.get('title'),deadline:data.get('deadline'),length:data.get('length'),description:data.get('description'),instructions:data.get('instructions'),files:await Promise.all(files.map(fileToPayload))};
+        await api('/quote-requests',{method:'POST',body:JSON.stringify(payload)});
+        const msg=document.getElementById('quoteSuccess'); msg.textContent='<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg> Quote request received. Homework Genie has received it for review.'; msg.style.display='block'; form.reset();
+        setTimeout(()=>{closeModal('quoteModal');msg.style.display='none';},1200);
+      }catch(err){alert(err.message);}
+    });
+
+    document.getElementById('assignmentForm').addEventListener('submit', async e=>{
+      e.preventDefault(); e.stopPropagation(); const user=currentUser(); const file=document.getElementById('assignmentFile').files[0];
+      if(!user || user.role!=='student'){ alert('Student login required.'); return; } if(!file){ alert('Please choose your assignment file.'); return; } if(file.size>20*1024*1024){ alert('Please choose a file smaller than 20 MB.'); return; }
+      try{
+        const payload={service:document.getElementById('assignmentService').value,subject:document.getElementById('assignmentSubject').value,title:document.getElementById('assignmentTitle').value,deadline:document.getElementById('assignmentDeadline').value,preferredDelivery:document.getElementById('assignmentDelivery').value,budget:document.getElementById('assignmentBudget').value,details:document.getElementById('assignmentDescription').value,instructions:document.getElementById('assignmentInstructions').value,files:[await fileToPayload(file)]};
+        await api('/assignments',{method:'POST',body:JSON.stringify(payload)}); const msg=document.getElementById('assignmentSuccess'); msg.textContent='<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg> Assignment received by Homework Genie for quotation review.'; msg.style.display='block'; e.target.reset();
+        setTimeout(()=>{closeModal('assignmentModal');msg.style.display='none';showDashboard(user);},1000);
+      }catch(err){alert(err.message);}
+    });
+
+    function openClientPayPal(){
+      alert('PayPal is retained as a payment foundation, but payment should be initiated from an invoice after the quotation workflow is connected to the backend.');
+    }
+
+    async function confirmPayPalPayment(){
+      alert('Payment confirmation will be connected to invoice/payment status tracking when the backend is added.');
+    }
+
+    async function renderRequests(user){
+      const requestList=document.getElementById('requestList'); if(!requestList) return;
+      try{
+        const data=await api('/student/requests'); const rows=[...(data.requests||[]).map(r=>({title:r.title,service:r.service,status:formatOrderStatus(r.status),date:r.createdAt})),...(data.assignments||[]).map(a=>({title:a.title,service:a.service,status:formatOrderStatus(a.status),date:a.createdAt}))].sort((a,b)=>new Date(b.date)-new Date(a.date));
+        requestList.innerHTML=rows.length?rows.map(r=>'<div class="assignment-item"><div style="display:flex;justify-content:space-between;gap:12px"><div><strong>'+escapeHtml(r.title)+'</strong><div style="color:#8b8390;font-size:11px;margin-top:4px">'+escapeHtml(r.service)+' • '+new Date(r.date).toLocaleDateString()+'</div></div><span class="status-pill">'+escapeHtml(r.status)+'</span></div></div>').join(''):'<div class="empty-state"><div class="empty-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg></div><strong>No requests yet</strong><div>Your quote requests will appear here.</div></div>';
+      }catch(err){ requestList.innerHTML='<div class="empty-state">Unable to load requests.</div>'; }
+    }
+    function formatOrderStatus(s){return ({request_received:'Request Received',under_review:'Under Review',quote_sent:'Quote Sent',payment_pending:'Payment Pending',in_progress:'In Progress',quality_check:'Quality Check',completed:'Completed'})[s]||'Request Received';}
+    async function sendEmailTemplate(templateId,params){
+      if(!window.emailjs || String(HG_CONFIG.emailjsPublicKey).startsWith('REPLACE_') || String(templateId).startsWith('REPLACE_')) return false;
+      try{ emailjs.init({publicKey:HG_CONFIG.emailjsPublicKey}); await emailjs.send(HG_CONFIG.emailjsServiceId,templateId,params); return true; }catch(e){console.warn('EmailJS not configured or email failed',e); return false; }
+    }
+    async function sendSubmissionEmail(user,a){
+      return sendEmailTemplate(HG_CONFIG.emailjsSubmissionTemplateId,{to_email:user.email,to_name:user.name,assignment_name:a.fileName,payment_id:a.paymentId,submission_date:new Date(a.createdAt).toLocaleString(),status:'Submitted / Payment Reported by Student'});
+    }
+    async function sendStatusEmail(user,a,newStatus){
+      return sendEmailTemplate(HG_CONFIG.emailjsStatusTemplateId,{to_email:user.email,to_name:user.name,assignment_name:a.fileName,status:newStatus});
+    }
+    function openForgotPassword(){
+      closeModal('loginModal');
+      document.getElementById('resetSuccess').style.display='none';
+      document.getElementById('resetEmail').value='';
+      openModal('forgotPasswordModal');
+    }
+
+    document.getElementById('forgotPasswordForm').addEventListener('submit',async e=>{
+      e.preventDefault();
+      const email=normalizeEmail(document.getElementById('resetEmail').value);
+      const msg=document.getElementById('resetSuccess');
+      msg.style.display='none';
+      try{
+        const r=await api('/auth/forgot-password',{method:'POST',body:JSON.stringify({email})});
+        msg.textContent=r.message||'If an account exists for this email, reset instructions have been issued.';
+        msg.style.display='block';
+        if(r.devResetToken){
+          setTimeout(()=>{ window.location.href='/reset-password.html?token='+encodeURIComponent(r.devResetToken); },500);
+        }
+      }catch(err){
+        msg.textContent=err.message;
+        msg.style.display='block';
+      }
+    });
+
+    function initGoogleSignIn(){
+      if(!window.google || !google.accounts || !google.accounts.id || String(HG_CONFIG.googleClientId).startsWith('REPLACE_')) return;
+      google.accounts.id.initialize({client_id:HG_CONFIG.googleClientId,callback:handleGoogleCredential});
+      ['googleSignupButton','googleLoginButton'].forEach(id=>{const el=document.getElementById(id);if(el){google.accounts.id.renderButton(el,{theme:'outline',size:'large',shape:'rectangular',text:'continue_with',width:320});}});
+    }
+    function handleGoogleCredential(){ alert('Google sign-in is not enabled yet. Please use email and password.'); }
+    window.addEventListener('load',()=>setTimeout(initGoogleSignIn,500));
+
+    async function downloadAssignment(id){
+      try{
+        const item=getAssignments().find(a=>a.id===id);
+        const file=await getStoredFile(id);
+        if(!item || !file){ alert('The assignment file is not available in this browser.'); return; }
+        const blob=file instanceof Blob ? file : new Blob([file],{type:item.fileType});
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement('a');
+        a.href=url;
+        a.download=item.fileName;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(()=>URL.revokeObjectURL(url),1000);
+      }catch(err){ console.error(err); alert('Unable to open the assignment file.'); }
+    }
+
+    async function renderAssignments(userId){
+      const list=document.getElementById('assignmentList'); if(!list) return;
+      try{ const data=await api('/student/requests'); const items=data.assignments||[]; const pending=items.filter(a=>['request_received','under_review','quote_sent','payment_pending'].includes(a.status)).length; const progress=items.filter(a=>['in_progress','quality_check'].includes(a.status)).length; const completed=items.filter(a=>a.status==='completed').length;
+        document.getElementById('studentTotalCount').textContent=items.length; document.getElementById('studentPendingCount').textContent=pending; document.getElementById('studentProgressCount').textContent=progress; document.getElementById('studentCompletedCount').textContent=completed;
+        const markup=items.map(a=>'<div class="assignment-item"><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start"><div><strong>'+escapeHtml(a.title||'Assignment')+'</strong><div style="color:#8b8390;font-size:11px;margin-top:5px">'+new Date(a.createdAt).toLocaleString()+'</div></div><span class="status-pill">'+escapeHtml(formatOrderStatus(a.status))+'</span></div><div style="color:#77707e;font-size:12px;margin-top:9px">'+escapeHtml(a.details||'')+'</div></div>').join('');
+        list.innerHTML=items.length?markup:'<div class="empty-state"><div class="empty-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></div><strong>No assignments yet</strong><div>Submit your first assignment to get started.</div></div>';
+      }catch(err){ list.innerHTML='<div class="empty-state">Unable to load assignments.</div>'; }
+    }
+    function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+
+    // Backend-connected student views. These override the older local-only placeholders.
+    async function renderQuotes(){
+      const el=document.getElementById('quoteList'); if(!el) return;
+      try{
+        const data=await api('/student/requests'); const items=data.quotes||[];
+        el.className=items.length?'':'empty-state';
+        el.innerHTML=items.length?items.map(q=>`<div class="assignment-item"><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start"><div><strong>${escapeHtml(q.quoteNumber||'Quote')}</strong><div style="color:#8b8390;font-size:11px;margin-top:5px">${escapeHtml(q.service||'')} • ${new Date(q.dateIssued).toLocaleDateString()}</div></div><span class="status-pill">${escapeHtml(q.status||'sent')}</span></div><div style="margin-top:10px;font-size:13px"><strong>${escapeHtml(q.title||'')}</strong><br>Total: <strong>${escapeHtml(Number(q.price||0).toFixed(2))}</strong></div>${q.status==='sent'?`<div class="assignment-item-actions"><button class="btn btn-primary" type="button" onclick="respondToQuote('${q.id}','accepted')">Accept Quote</button><button class="btn btn-outline" type="button" onclick="respondToQuote('${q.id}','changes_requested')">Request Changes</button><button class="btn btn-outline" type="button" onclick="respondToQuote('${q.id}','declined')">Decline</button></div>`:''}</div>`).join(''):'<div class="empty-state"><div class="empty-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11H8l-4 4V5Z"/><path d="M8 9h8M8 12h5"/></svg></div><strong>No quotes yet</strong><div>Quotes sent by Homework Genie will appear here.</div></div>';
+      }catch(e){el.innerHTML='<div class="empty-state">Unable to load quotes.</div>';}
+    }
+    async function respondToQuote(id,action){
+      const note=action==='changes_requested'?prompt('What would you like changed?')||'': '';
+      try{const r=await api('/quotes/'+id+'/respond',{method:'POST',body:JSON.stringify({action,note})});await renderQuotes();await renderInvoices();if(r.invoice) alert('Quote accepted. Your invoice is now available in My Invoices.');}catch(e){alert(e.message);}
+    }
+    async function renderInvoices(){
+      const el=document.getElementById('invoiceList'); if(!el) return;
+      try{const data=await api('/student/requests'); const items=data.invoices||[];
+        el.innerHTML=items.length?items.map(i=>`<div class="assignment-item"><div style="display:flex;justify-content:space-between;gap:12px"><div><strong>${escapeHtml(i.invoiceNumber)}</strong><div style="color:#8b8390;font-size:11px;margin-top:5px">${escapeHtml(i.service||'')} • ${new Date(i.date).toLocaleDateString()}</div></div><span class="status-pill">${escapeHtml(i.status)}</span></div><div style="margin-top:10px;font-size:14px">Amount due: <strong>${escapeHtml(Number(i.amount||0).toFixed(2))}</strong></div>${i.status==='pending_payment'?'<div style="margin-top:10px;color:#8b8390;font-size:12px">Payment checkout will be connected to the live payment provider after credentials are added.</div>':''}</div>`).join(''):'<div class="empty-state"><div class="empty-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div><strong>No invoices yet</strong><div>Invoices will appear here after a quote is accepted.</div></div>';
+      }catch(e){el.innerHTML='<div class="empty-state">Unable to load invoices.</div>';}
+    }
+    async function downloadAssignment(id){
+      try{const r=await fetch('/api/files/'+encodeURIComponent(id),{credentials:'same-origin'});if(!r.ok)throw Error('Unable to download file.');const blob=await r.blob();const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Homework-Genie-file';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){alert(e.message);}
+    }
+    const _showDashboardOriginal=showDashboard;
+    async function showDashboard(user){
+      _showDashboardOriginal(user);
+      if(user&&user.role==='student'){ await Promise.allSettled([renderQuotes(),renderInvoices()]); }
+    }
+    async function logout(){try{await api('/auth/logout',{method:'POST'});}catch{} localStorage.removeItem(SESSION_TOKEN_KEY); API_USER=null; document.getElementById('dashboard').classList.remove('active'); document.body.style.overflow='';}
+
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){['studentModal','loginModal','profileEditModal','assignmentModal','forgotPasswordModal','paypalModal','quoteModal'].forEach(closeModal);}});
+    if(new URLSearchParams(location.search).get('login')==='1'){window.addEventListener('load',()=>openModal('loginModal'));}
+    window.addEventListener('DOMContentLoaded',async()=>{const u=await refreshUser();if(u)showDashboard(u);});
+  </script>
+
+  <a class="whatsapp-float" href="https://wa.me/19176404768?text=Hello%20Homework%20Genie%2C%20I%20would%20like%20to%20ask%20a%20question." target="_blank" rel="noopener noreferrer" aria-label="Chat with Homework Genie on WhatsApp" title="Chat with Homework Genie on WhatsApp">
+    <svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7c1.7.9 3.5 1.3 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.3-6.1-3.5-8.3ZM12.1 21.4h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.9 1 1-3.8-.2-.3a9.7 9.7 0 0 1-1.5-5.1c0-5.4 4.4-9.7 9.8-9.7 2.6 0 5.1 1 6.9 2.8a9.7 9.7 0 0 1 2.9 6.9c0 5.3-4.4 9.7-9.8 9.7Zm5.3-7.3c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.1-1.3-.5-2.5-1.6-.9-.8-1.6-1.8-1.8-2.1-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.5 0-.7-.1-.2-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.1 3.1 1.2 3.3c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/></svg>
+  </a>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+
+    <div>
+
+      <div class="logo">
+        Homework<span>Genie</span>
+      </div>
+
+      <p>
+        Academic support made simple.
+      </p>
+
+      <p>
+        © 2026 Homework Genie. All rights reserved.
+      </p>
+
+      <div class="contact-channels" aria-label="Homework Genie contact channels">
+        <a class="contact-channel" href="https://www.instagram.com/hw_genie/" target="_blank" rel="noopener noreferrer">
+          <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".7" fill="currentColor" stroke="none"/></svg>
+          @hw_genie
+        </a>
+        <a class="contact-channel" href="https://www.tiktok.com/@homeworkgenie" target="_blank" rel="noopener noreferrer">
+          <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v10.2a4.8 4.8 0 1 1-3.6-4.65"/><path d="M14 4c.7 2.2 2.1 3.4 4.5 3.7"/></svg>
+          @homeworkgenie
+        </a>
+        <a class="contact-channel" href="mailto:hwgenie@proton.me">
+          <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+          hwgenie@proton.me
+        </a>
+        <a class="contact-channel" href="https://wa.me/19176404768?text=Hello%20Homework%20Genie%2C%20I%20have%20a%20question%20about%20your%20services." target="_blank" rel="noopener noreferrer" aria-label="Chat with Homework Genie on WhatsApp">
+          <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7c1.7.9 3.5 1.3 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.3-6.1-3.5-8.3ZM12.1 21.4h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.9 1 1-3.8-.2-.3a9.7 9.7 0 0 1-1.5-5.1c0-5.4 4.4-9.7 9.8-9.7 2.6 0 5.1 1 6.9 2.8a9.7 9.7 0 0 1 2.9 6.9c0 5.3-4.4 9.7-9.8 9.7Zm5.3-7.3c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.1-1.3-.5-2.5-1.6-.9-.8-1.6-1.8-1.8-2.1-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.5 0-.7-.1-.2-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.1 3.1 1.2 3.3c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/></svg>
+          WhatsApp
+        </a>
+        <span class="contact-channel">
+          <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          hw_genie.com
+        </span>
+      </div>
+
+    </div>
+
+    <div class="footer-links">
+
+      <a href="tel:+19176404768"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h3l1.5 4-2 1.5a13 13 0 0 0 6 6l1.5-2 4 1.5v3c0 1-1 2-3 2C10 19 5 14 5 6c0-2 1-3 2-3Z"/></svg> +1 (917) 640-4768</a>
+
+      <a href="https://wa.me/19176404768">
+        WhatsApp
+      </a>
+
+      <a href="mailto:hwgenie@proton.me">
+        Email
+      </a>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
