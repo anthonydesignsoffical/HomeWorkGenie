@@ -2035,19 +2035,19 @@ async function api(
       }
     );
 
-   return sendJson(
-  res,
-  200,
-  {
-    user:
-      publicUser(u),
-    token:
-      token({
-        sub: u.id,
-        role: 'student'
-      })
-  }
-  };
+      return sendJson(
+      res,
+      200,
+      {
+        user:
+          publicUser(u),
+        token:
+          token({
+            sub: u.id,
+            role: 'student'
+          })
+      }
+    );
   }
 
   /*
