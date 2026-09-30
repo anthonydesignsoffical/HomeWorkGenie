@@ -1353,8 +1353,18 @@
       document.getElementById('studentProfileName').textContent=user.name; document.getElementById('studentProfileEducation').textContent=user.education;
       document.getElementById('studentProfileEmail').textContent=user.email; document.getElementById('studentProfilePhone').textContent=user.phone; document.getElementById('studentProfileLevel').textContent=user.education;
       document.getElementById('studentProfileName2').textContent=user.name; document.getElementById('studentProfileEducation2').textContent=user.education; document.getElementById('studentProfileNameDetail').textContent=user.name; document.getElementById('studentProfileEmail2').textContent=user.email; document.getElementById('studentProfilePhone2').textContent=user.phone; document.getElementById('studentProfileLevel2').textContent=user.education;
-      renderAssignments(user.id); renderRequests(user); switchDashView('studentOverview',document.querySelector('#studentSideNav button'));
-    }
+      renderAssignments(user.id);
+renderRequests(user);
+switchDashView('studentOverview',document.querySelector('#studentSideNav button'));
+
+if(user.role === 'student'){
+  Promise.allSettled([
+    renderQuotes(),
+    renderInvoices()
+  ]);
+}
+}
+    
 
     document.getElementById('studentSignupForm').addEventListener('submit',createAccount);
     document.getElementById('loginForm').addEventListener('submit',async e=>{
@@ -1578,11 +1588,7 @@
     async function downloadAssignment(id){
       try{const r=await fetch('/api/files/'+encodeURIComponent(id),{credentials:'same-origin'});if(!r.ok)throw Error('Unable to download file.');const blob=await r.blob();const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Homework-Genie-file';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){alert(e.message);}
     }
-    const _showDashboardOriginal=showDashboard;
-    async function showDashboard(user){
-      _showDashboardOriginal(user);
-      if(user&&user.role==='student'){ await Promise.allSettled([renderQuotes(),renderInvoices()]); }
-    }
+    
     async function logout(){try{await api('/auth/logout',{method:'POST'});}catch{} localStorage.removeItem(SESSION_TOKEN_KEY); API_USER=null; document.getElementById('dashboard').classList.remove('active'); document.body.style.overflow='';}
 
     document.addEventListener('keydown',e=>{if(e.key==='Escape'){['studentModal','loginModal','profileEditModal','assignmentModal','forgotPasswordModal','paypalModal','quoteModal'].forEach(closeModal);}});
