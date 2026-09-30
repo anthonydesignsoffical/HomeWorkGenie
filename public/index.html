@@ -1531,9 +1531,50 @@
     async function renderInvoices(){
       const el=document.getElementById('invoiceList'); if(!el) return;
       try{const data=await api('/student/requests'); const items=data.invoices||[];
-        el.innerHTML=items.length?items.map(i=>`<div class="assignment-item"><div style="display:flex;justify-content:space-between;gap:12px"><div><strong>${escapeHtml(i.invoiceNumber)}</strong><div style="color:#8b8390;font-size:11px;margin-top:5px">${escapeHtml(i.service||'')} • ${new Date(i.date).toLocaleDateString()}</div></div><span class="status-pill">${escapeHtml(i.status)}</span></div><div style="margin-top:10px;font-size:14px">Amount due: <strong>${escapeHtml(Number(i.amount||0).toFixed(2))}</strong></div>${i.status==='pending_payment'?'<div style="margin-top:10px;color:#8b8390;font-size:12px">Payment checkout will be connected to the live payment provider after credentials are added.</div>':''}</div>`).join(''):'<div class="empty-state"><div class="empty-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div><strong>No invoices yet</strong><div>Invoices will appear here after a quote is accepted.</div></div>';
+        el.innerHTML=items.length?items.map(i=>`<div class="assignment-item"><div style="display:flex;justify-content:space-between;gap:12px"><div><strong>${escapeHtml(i.invoiceNumber)}</strong><div style="color:#8b8390;font-size:11px;margin-top:5px">${escapeHtml(i.service||'')} • ${new Date(i.date).toLocaleDateString()}</div></div><span class="status-pill">${escapeHtml(i.status)}</span></div><div style="margin-top:10px;font-size:14px">Amount due: <strong>${escapeHtml(Number(i.amount||0).toFixed(2))}</strong></div>${i.status==='pending_payment'
+  ? `<button
+       type="button"
+       class="btn btn-primary"
+       style="margin-top:10px"
+       onclick="payInvoice('${escapeHtml(i.id)}')">
+       Pay with PayPal
+     </button>`
+  : ''}</div>`).join(''):'<div class="empty-state"><div class="empty-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div><strong>No invoices yet</strong><div>Invoices will appear here after a quote is accepted.</div></div>';
       }catch(e){el.innerHTML='<div class="empty-state">Unable to load invoices.</div>';}
     }
+	async function payInvoice(invoiceId){
+  try{
+    localStorage.setItem(
+      'PAYPAL_INVOICE_ID',
+      invoiceId
+    );
+
+    const r = await api(
+      '/paypal/create-order',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          invoiceId
+        })
+      }
+    );
+
+    if(!r.approveUrl){
+      throw new Error(
+        'Unable to open PayPal checkout.'
+      );
+    }
+
+    window.location.href = r.approveUrl;
+
+  }catch(e){
+    localStorage.removeItem(
+      'PAYPAL_INVOICE_ID'
+    );
+
+    alert(e.message);
+  }
+}
     async function downloadAssignment(id){
       try{const r=await fetch('/api/files/'+encodeURIComponent(id),{credentials:'same-origin'});if(!r.ok)throw Error('Unable to download file.');const blob=await r.blob();const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Homework-Genie-file';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){alert(e.message);}
     }
@@ -1546,7 +1587,90 @@
 
     document.addEventListener('keydown',e=>{if(e.key==='Escape'){['studentModal','loginModal','profileEditModal','assignmentModal','forgotPasswordModal','paypalModal','quoteModal'].forEach(closeModal);}});
     if(new URLSearchParams(location.search).get('login')==='1'){window.addEventListener('load',()=>openModal('loginModal'));}
-    window.addEventListener('DOMContentLoaded',async()=>{const u=await refreshUser();if(u)showDashboard(u);});
+    window.addEventListener('DOMContentLoaded',async()=>{
+  const u=await refreshUser();
+
+  if(u){
+    showDashboard(u);
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const orderId =
+      params.get('token');
+
+    if(
+      u.role === 'student' &&
+      orderId
+    ){
+      try{
+        const invoiceData =
+          await api('/student/requests');
+
+        const invoices =
+          invoiceData.invoices || [];
+
+        const invoiceId =
+  localStorage.getItem(
+    'PAYPAL_INVOICE_ID'
+  );
+
+const pendingInvoice =
+  invoices.find(
+    i =>
+      i.id === invoiceId &&
+      i.status ===
+      'pending_payment'
+  );
+
+        if(pendingInvoice){
+
+          const result =
+            await api(
+              '/paypal/capture-order',
+              {
+                method: 'POST',
+
+                body:
+                  JSON.stringify({
+                    invoiceId:
+                      pendingInvoice.id,
+
+                    orderId
+                  })
+              }
+            );
+
+          if(result.success){
+		  localStorage.removeItem(
+  'PAYPAL_INVOICE_ID'
+);
+            alert(
+              'Payment successful! Your invoice has been marked as paid.'
+            );
+
+            window.history.replaceState(
+              {},
+              document.title,
+              window.location.pathname
+            );
+
+            await renderInvoices();
+          }
+        }
+
+      }catch(e){
+        alert(
+          'PayPal payment could not be completed: ' +
+          e.message
+        );
+      }
+    }
+  }
+});
+
   </script>
 
   <a class="whatsapp-float" href="https://wa.me/19176404768?text=Hello%20Homework%20Genie%2C%20I%20would%20like%20to%20ask%20a%20question." target="_blank" rel="noopener noreferrer" aria-label="Chat with Homework Genie on WhatsApp" title="Chat with Homework Genie on WhatsApp">

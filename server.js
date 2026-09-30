@@ -100,6 +100,38 @@ const APP_BASE_URL =
 
 /*
 |--------------------------------------------------------------------------
+| PAYPAL CONFIGURATION
+|--------------------------------------------------------------------------
+*/
+
+const PAYPAL_ENV =
+  String(
+    process.env.PAYPAL_ENV || 'sandbox'
+  ).toLowerCase();
+
+const PAYPAL_CLIENT_ID =
+  String(
+    process.env.PAYPAL_CLIENT_ID || ''
+  ).trim();
+
+const PAYPAL_CLIENT_SECRET =
+  String(
+    process.env.PAYPAL_CLIENT_SECRET || ''
+  ).trim();
+
+const PAYPAL_CURRENCY =
+  String(
+    process.env.PAYPAL_CURRENCY || 'USD'
+  )
+    .trim()
+    .toUpperCase();
+
+const PAYPAL_API_BASE =
+  PAYPAL_ENV === 'live'
+    ? 'https://api-m.paypal.com'
+    : 'https://api-m.sandbox.paypal.com';
+/*
+|--------------------------------------------------------------------------
 | EMAIL / SMTP CONFIGURATION
 |--------------------------------------------------------------------------
 */
@@ -1164,7 +1196,219 @@ function validPassword(p) {
     /\d/.test(p)
   );
 }
+/*
+|--------------------------------------------------------------------------
+| PAYPAL ACCESS TOKEN
+|--------------------------------------------------------------------------
+*/
 
+async function getPayPalAccessToken() {
+  if (
+    !PAYPAL_CLIENT_ID ||
+    !PAYPAL_CLIENT_SECRET
+  ) {
+    throw new Error(
+      'PayPal credentials are not configured.'
+    );
+  }
+
+  const credentials =
+    Buffer.from(
+      `${PAYPAL_CLIENT_ID}:${PAYPAL_CLIENT_SECRET}`
+    ).toString('base64');
+
+  const response =
+    await fetch(
+      `${PAYPAL_API_BASE}/v1/oauth2/token`,
+      {
+        method: 'POST',
+
+        headers: {
+          'Authorization':
+            `Basic ${credentials}`,
+
+          'Content-Type':
+            'application/x-www-form-urlencoded'
+        },
+
+        body:
+          'grant_type=client_credentials'
+      }
+    );
+
+  const data =
+    await response.json();
+
+  if (
+    !response.ok ||
+    !data.access_token
+  ) {
+    throw new Error(
+      data.error_description ||
+      'Unable to authenticate with PayPal.'
+    );
+  }
+
+  return data.access_token;
+}
+/*
+|--------------------------------------------------------------------------
+| CREATE PAYPAL ORDER
+|--------------------------------------------------------------------------
+*/
+
+async function createPayPalOrder(invoice) {
+  const accessToken =
+    await getPayPalAccessToken();
+
+  const amount =
+    Number(invoice.amount);
+
+  if (
+    !Number.isFinite(amount) ||
+    amount <= 0
+  ) {
+    throw new Error(
+      'Invalid invoice amount.'
+    );
+  }
+
+  const value =
+    amount.toFixed(2);
+
+  const response =
+    await fetch(
+      `${PAYPAL_API_BASE}/v2/checkout/orders`,
+      {
+        method: 'POST',
+
+        headers: {
+          'Authorization':
+            `Bearer ${accessToken}`,
+
+          'Content-Type':
+            'application/json',
+
+          'Accept':
+            'application/json'
+        },
+
+        body: JSON.stringify({
+          intent: 'CAPTURE',
+
+          purchase_units: [
+            {
+              reference_id:
+                String(
+                  invoice.id
+                ),
+
+              description:
+                String(
+                  invoice.service ||
+                  'Homework Genie service'
+                ).slice(0, 127),
+
+              amount: {
+                currency_code:
+                  PAYPAL_CURRENCY,
+
+                value
+              }
+            }
+          ],
+
+          application_context: {
+            brand_name:
+              'Homework Genie',
+
+            user_action:
+              'PAY_NOW',
+
+            return_url:
+              `${APP_BASE_URL}/student-portal`,
+
+            cancel_url:
+              `${APP_BASE_URL}/student-portal`
+          }
+        })
+      }
+    );
+
+  const data =
+    await response.json();
+
+  if (
+    !response.ok ||
+    !data.id
+  ) {
+    throw new Error(
+      data.message ||
+      data.details?.[0]?.description ||
+      'Unable to create PayPal order.'
+    );
+  }
+
+  return data;
+}
+
+/*
+|--------------------------------------------------------------------------
+| CAPTURE PAYPAL ORDER
+|--------------------------------------------------------------------------
+*/
+
+async function capturePayPalOrder(
+  orderId
+) {
+  const accessToken =
+    await getPayPalAccessToken();
+
+  const cleanOrderId =
+    String(orderId || '').trim();
+
+  if (!cleanOrderId) {
+    throw new Error(
+      'PayPal order ID is required.'
+    );
+  }
+
+  const response =
+    await fetch(
+      `${PAYPAL_API_BASE}/v2/checkout/orders/${encodeURIComponent(
+        cleanOrderId
+      )}/capture`,
+      {
+        method: 'POST',
+
+        headers: {
+          'Authorization':
+            `Bearer ${accessToken}`,
+
+          'Content-Type':
+            'application/json',
+
+          'Accept':
+            'application/json'
+        },
+
+        body: '{}'
+      }
+    );
+
+  const data =
+    await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      data.details?.[0]?.description ||
+      'Unable to capture PayPal payment.'
+    );
+  }
+
+  return data;
+}
 /*
 |--------------------------------------------------------------------------
 | FILE HANDLING
@@ -1704,13 +1948,18 @@ async function api(
     );
 
     return sendJson(
-      res,
-      201,
-      {
-        user:
-          publicUser(user)
-      }
-    );
+  res,
+  201,
+  {
+    user:
+      publicUser(user),
+    token:
+      token({
+        sub: user.id,
+        role: 'student'
+      })
+  }
+);
   }
 
   /*
@@ -1786,14 +2035,19 @@ async function api(
       }
     );
 
-    return sendJson(
-      res,
-      200,
-      {
-        user:
-          publicUser(u)
-      }
-    );
+   return sendJson(
+  res,
+  200,
+  {
+    user:
+      publicUser(u),
+    token:
+      token({
+        sub: u.id,
+        role: 'student'
+      })
+  }
+  };
   }
 
   /*
@@ -4542,6 +4796,462 @@ ${item.status}
       }
     );
   }
+  /*
+|--------------------------------------------------------------------------
+| STUDENT CREATE PAYPAL ORDER
+|--------------------------------------------------------------------------
+*/
+
+if (
+  req.method === 'POST' &&
+  p === '/api/paypal/create-order'
+) {
+  if (
+    !requireMutation(
+      req,
+      res
+    )
+  ) {
+    return;
+  }
+
+  const r =
+    requireAuth(
+      req,
+      'student'
+    );
+
+  if (r.error) {
+    return sendJson(
+      res,
+      r.status,
+      {
+        error:
+          r.error
+      }
+    );
+  }
+
+  const x =
+    await jsonBody(req);
+
+  const invoice =
+    d.invoices.find(
+      i =>
+        i.id ===
+          x.invoiceId &&
+        i.userId ===
+          r.auth.sub
+    );
+
+  if (!invoice) {
+    return sendJson(
+      res,
+      404,
+      {
+        error:
+          'Invoice not found.'
+      }
+    );
+  }
+
+  if (
+    invoice.status ===
+    'paid'
+  ) {
+    return sendJson(
+      res,
+      409,
+      {
+        error:
+          'Invoice is already paid.'
+      }
+    );
+  }
+
+  if (
+    invoice.status !==
+    'pending_payment'
+  ) {
+    return sendJson(
+      res,
+      409,
+      {
+        error:
+          'This invoice is not available for payment.'
+      }
+    );
+  }
+
+  try {
+    const order =
+      await createPayPalOrder(
+        invoice
+      );
+
+    return sendJson(
+      res,
+      200,
+      {
+        orderId:
+          order.id,
+
+       approveUrl:
+  order.links?.find(
+    link =>
+      link.rel ===
+      'approve' ||
+      link.rel ===
+      'payer-action'
+  )?.href || null
+      }
+    );
+  } catch (error) {
+    console.error(
+      'PayPal create order error:',
+      error
+    );
+
+    return sendJson(
+      res,
+      502,
+      {
+        error:
+          'Unable to create PayPal payment.'
+      }
+    );
+  }
+}
+/*
+|--------------------------------------------------------------------------
+| STUDENT CAPTURE PAYPAL PAYMENT
+|--------------------------------------------------------------------------
+*/
+
+if (
+  req.method === 'POST' &&
+  p === '/api/paypal/capture-order'
+) {
+  if (
+    !requireMutation(
+      req,
+      res
+    )
+  ) {
+    return;
+  }
+
+  const r =
+    requireAuth(
+      req,
+      'student'
+    );
+
+  if (r.error) {
+    return sendJson(
+      res,
+      r.status,
+      {
+        error:
+          r.error
+      }
+    );
+  }
+
+  const x =
+    await jsonBody(req);
+
+  const invoice =
+    d.invoices.find(
+      i =>
+        i.id ===
+          x.invoiceId &&
+        i.userId ===
+          r.auth.sub
+    );
+
+  if (!invoice) {
+    return sendJson(
+      res,
+      404,
+      {
+        error:
+          'Invoice not found.'
+      }
+    );
+  }
+
+  if (
+    invoice.status ===
+    'paid'
+  ) {
+    return sendJson(
+      res,
+      409,
+      {
+        error:
+          'Invoice is already paid.'
+      }
+    );
+  }
+
+  if (
+    invoice.status !==
+    'pending_payment'
+  ) {
+    return sendJson(
+      res,
+      409,
+      {
+        error:
+          'This invoice is not available for payment.'
+      }
+    );
+  }
+
+  const orderId =
+    String(
+      x.orderId || ''
+    ).trim();
+
+  if (!orderId) {
+    return sendJson(
+      res,
+      400,
+      {
+        error:
+          'PayPal order ID is required.'
+      }
+    );
+  }
+
+  try {
+    const result =
+      await capturePayPalOrder(
+        orderId
+      );
+
+    if (
+      result.status !==
+      'COMPLETED'
+    ) {
+      return sendJson(
+        res,
+        402,
+        {
+          error:
+            'PayPal payment was not completed.'
+        }
+      );
+    }
+
+    const purchaseUnit =
+      result.purchase_units?.[0];
+
+    const captured =
+      purchaseUnit
+        ?.payments
+        ?.captures?.[0];
+
+    if (
+      !purchaseUnit ||
+      !captured
+    ) {
+      return sendJson(
+        res,
+        502,
+        {
+          error:
+            'PayPal payment details could not be verified.'
+        }
+      );
+    }
+
+    const capturedAmount =
+      captured.amount;
+
+    if (
+      purchaseUnit.reference_id !==
+      String(invoice.id)
+    ) {
+      return sendJson(
+        res,
+        400,
+        {
+          error:
+            'PayPal order does not match this invoice.'
+        }
+      );
+    }
+
+    if (
+      captured.status !==
+      'COMPLETED'
+    ) {
+      return sendJson(
+        res,
+        402,
+        {
+          error:
+            'PayPal payment has not completed.'
+        }
+      );
+    }
+
+    if (
+      capturedAmount?.currency_code !==
+      PAYPAL_CURRENCY
+    ) {
+      return sendJson(
+        res,
+        400,
+        {
+          error:
+            'PayPal payment currency does not match the invoice.'
+        }
+      );
+    }
+
+    if (
+      Number(
+        capturedAmount?.value
+      ) !==
+      Number(invoice.amount)
+    ) {
+      return sendJson(
+        res,
+        400,
+        {
+          error:
+            'PayPal payment amount does not match the invoice.'
+        }
+      );
+    }
+
+    const pay = {
+      id:
+        id(),
+
+      invoiceId:
+        invoice.id,
+
+      method:
+        'paypal',
+
+      amount:
+        invoice.amount,
+
+      status:
+        'paid',
+
+      reference:
+        String(
+          captured.id || orderId
+        ).slice(0, 120),
+
+      receivedAt:
+        now()
+    };
+
+    d.payments.unshift(
+      pay
+    );
+
+    invoice.status =
+      'paid';
+
+    notify(
+      d,
+      'payment_received',
+      {
+        invoiceId:
+          invoice.id,
+
+        email:
+          invoice.email
+      }
+    );
+
+    await atomicSave(d);
+
+    await sendPaymentReceivedEmail(
+      invoice,
+      pay
+    );
+
+    await sendEmail({
+      to:
+        ADMIN_NOTIFICATION_EMAIL,
+
+      subject:
+        `PayPal Payment Received — ${invoice.invoiceNumber}`,
+
+      text: `
+PayPal payment received for invoice ${invoice.invoiceNumber}.
+
+Amount: ${invoice.amount}
+Method: PayPal
+Reference: ${pay.reference}
+`.trim(),
+
+      html: `
+        <div style="font-family:Arial,sans-serif;line-height:1.6">
+          <h2>PayPal Payment Received</h2>
+
+          <p>
+            <strong>Invoice:</strong>
+            ${escapeHtml(invoice.invoiceNumber)}
+          </p>
+
+          <p>
+            <strong>Amount:</strong>
+            ${escapeHtml(invoice.amount)}
+          </p>
+
+          <p>
+            <strong>Method:</strong>
+            PayPal
+          </p>
+
+          <p>
+            <strong>Reference:</strong>
+            ${escapeHtml(pay.reference)}
+          </p>
+        </div>
+      `
+    });
+
+    return sendJson(
+      res,
+      200,
+      {
+        success:
+          true,
+
+        invoice:
+          invoice,
+
+        payment:
+          pay
+      }
+    );
+  } catch (error) {
+    console.error(
+      'PayPal capture error:',
+      error
+    );
+
+    return sendJson(
+      res,
+      502,
+      {
+        error:
+          'Unable to complete PayPal payment.'
+      }
+    );
+  }
+}
+
 
   /*
   |--------------------------------------------------------------------------
