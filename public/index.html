@@ -760,7 +760,7 @@
 
     <div class="nav-buttons">
       <button type="button" class="btn btn-outline" onclick="openModal('quote')">Request a Quote</button>
-      <button type="button" class="btn btn-outline" onclick="openModal('login')">Student Login</button>
+      <button type="button" id="navLoginBtn" class="btn btn-outline" onclick="navLoginClick()">Student Login</button>
     </div>
 
   </nav>
@@ -1293,10 +1293,12 @@
       for(let i=0;i<bytes.length;i+=chunk) binary+=String.fromCharCode(...bytes.subarray(i,i+chunk));
       return {name:file.name,size:file.size,type:file.type,data:btoa(binary)};
     }
-    function loginUser(user,token){ API_USER=user; if(token)localStorage.setItem(SESSION_TOKEN_KEY,token); showDashboard(user); }
+    function loginUser(user,token){ API_USER=user; if(token)localStorage.setItem(SESSION_TOKEN_KEY,token); syncNavBtn(); showDashboard(user); }
     async function refreshUser(){ try{const r=await api('/me'); API_USER=r.user; return r.user;}catch{API_USER=null;return null;} }
     function currentUser(){ return API_USER; }
-    function logout(){ localStorage.removeItem(SESSION_TOKEN_KEY); API_USER=null; document.getElementById('dashboard').classList.remove('active'); document.body.style.overflow=''; }
+	function navLoginClick(){ const u=currentUser(); if(u && u.role==='student'){ showDashboard(u); } else { openModal('login'); } }
+function syncNavBtn(){ const b=document.getElementById('navLoginBtn'); if(b) b.textContent=currentUser()?'My Dashboard':'Student Login'; }
+    
 
     function openModal(type){
       const ids = {
@@ -1589,16 +1591,16 @@ if(user.role === 'student'){
       try{const r=await fetch('/api/files/'+encodeURIComponent(id),{credentials:'same-origin'});if(!r.ok)throw Error('Unable to download file.');const blob=await r.blob();const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Homework-Genie-file';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){alert(e.message);}
     }
     
-    async function logout(){try{await api('/auth/logout',{method:'POST'});}catch{} localStorage.removeItem(SESSION_TOKEN_KEY); API_USER=null; document.getElementById('dashboard').classList.remove('active'); document.body.style.overflow='';}
+    async function logout(){try{await api('/auth/logout',{method:'POST'});}catch{} localStorage.removeItem(SESSION_TOKEN_KEY); API_USER=null; syncNavBtn(); document.getElementById('dashboard').classList.remove('active'); document.body.style.overflow='';}
 
     document.addEventListener('keydown',e=>{if(e.key==='Escape'){['studentModal','loginModal','profileEditModal','assignmentModal','forgotPasswordModal','paypalModal','quoteModal'].forEach(closeModal);}});
     if(new URLSearchParams(location.search).get('login')==='1'){window.addEventListener('load',()=>openModal('loginModal'));}
     window.addEventListener('DOMContentLoaded',async()=>{
   const u=await refreshUser();
 
-  if(u){
-    showDashboard(u);
-
+ if(u){
+    if (new URLSearchParams(window.location.search).get('token')) showDashboard(u);
+    syncNavBtn();
     const params =
       new URLSearchParams(
         window.location.search
