@@ -746,6 +746,25 @@
 .services .card-img { width:100%; height:190px; object-fit:cover; display:block; margin-bottom:20px; }
 .services .card h3 { padding:0 26px; }
 .services .card p { padding:0 26px 28px; }
+@media(min-width:901px){
+  .offer-grid { grid-template-columns:1fr; gap:14px; }
+  .offer-card { display:grid; grid-template-columns:190px 1fr; align-items:center; gap:24px; padding:18px 26px; }
+  .offer-card h3 { margin-bottom:0; }
+  .offer-list,
+  .offer-list.columns { display:flex; flex-wrap:wrap; gap:8px 26px; }
+}
+.hg-slider{position:relative;max-width:1000px;margin:50px auto 0;border-radius:18px;overflow:hidden;box-shadow:0 14px 40px rgba(36,21,43,.18);border:1px solid var(--hg-line)}
+.hg-track{display:flex;transition:transform .6s ease}
+.hg-slide{flex:0 0 100%}
+.hg-slide img{display:block;width:100%;height:420px;object-fit:cover}
+.hg-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border:0;border-radius:50%;background:rgba(36,21,43,.65);color:#fff;font-size:26px;line-height:1;cursor:pointer}
+.hg-arrow:hover{background:var(--hg-gold);color:#1d1422}
+.hg-prev{left:14px}
+.hg-next{right:14px}
+.hg-dots{position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:8px}
+.hg-dots button{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.6);cursor:pointer}
+.hg-dots button.active{background:var(--hg-gold);width:26px;border-radius:6px}
+@media(max-width:700px){.hg-slide img{height:240px}.hg-arrow{width:36px;height:36px}}
 </style>
 <!-- Homework Genie integrations: replace the placeholder IDs in HG_CONFIG below. -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -1020,6 +1039,18 @@
 
       </div>
 
+    </div>
+	    <div class="hg-slider" id="hgSlider" aria-label="Homework Genie photo slider">
+      <div class="hg-track">
+        <div class="hg-slide"><img src="/assets/how/slide-1.jpg" alt="" loading="lazy"></div>
+        <div class="hg-slide"><img src="/assets/how/slide-2.jpg" alt="" loading="lazy"></div>
+        <div class="hg-slide"><img src="/assets/how/slide-3.jpg" alt="" loading="lazy"></div>
+        <div class="hg-slide"><img src="/assets/how/slide-4.jpg" alt="" loading="lazy"></div>
+        <div class="hg-slide"><img src="/assets/how/slide-5.jpg" alt="" loading="lazy"></div>
+      </div>
+      <button type="button" class="hg-arrow hg-prev" aria-label="Previous slide">&#8249;</button>
+      <button type="button" class="hg-arrow hg-next" aria-label="Next slide">&#8250;</button>
+      <div class="hg-dots" id="hgDots"></div>
     </div>
 
   </section>
@@ -1749,6 +1780,25 @@ const pendingInvoice =
     </div>
 
   </footer>
-
+<script>
+(function(){
+  var root=document.getElementById('hgSlider'); if(!root) return;
+  var track=root.querySelector('.hg-track');
+  var n=root.querySelectorAll('.hg-slide').length;
+  var dotsBox=document.getElementById('hgDots');
+  var i=0,timer=null,dots=[];
+  function go(x){i=(x+n)%n;track.style.transform='translateX(-'+(i*100)+'%)';dots.forEach(function(d,j){d.classList.toggle('active',j===i);});}
+  function restart(){clearInterval(timer);timer=setInterval(function(){go(i+1);},4500);}
+  for(var k=0;k<n;k++){(function(k){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Go to slide '+(k+1));b.onclick=function(){go(k);restart();};dotsBox.appendChild(b);dots.push(b);})(k);}
+  root.querySelector('.hg-prev').onclick=function(){go(i-1);restart();};
+  root.querySelector('.hg-next').onclick=function(){go(i+1);restart();};
+  root.addEventListener('mouseenter',function(){clearInterval(timer);});
+  root.addEventListener('mouseleave',restart);
+  var sx=null;
+  root.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
+  root.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40){go(i+(dx<0?1:-1));restart();}sx=null;});
+  go(0);restart();
+})();
+</script>
 </body>
 </html>
