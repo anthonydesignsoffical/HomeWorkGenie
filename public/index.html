@@ -212,7 +212,7 @@
     .stats {
       display: flex;
       gap: 50px;
-      margin-top: 55px;
+      margin-top: 35px;
       flex-wrap: wrap;
     }
 
@@ -733,10 +733,19 @@
 .dash-sidebar .logo img { object-position:left center; }
 .btn-outline { background:var(--hg-gold) !important; border-color:var(--hg-gold) !important; color:#1d1422 !important; }
 .btn-outline:hover { background:#bd8f25 !important; border-color:#bd8f25 !important; color:#fff !important; }
-.hero h1 span { color:#fff !important; }
+.hero h1,
+.hero h1 span { font-family:"Fredoka","Nunito Sans",sans-serif; }
+.hero h1 { font-weight:700; font-size:clamp(40px,8vw,88px); line-height:1.02; letter-spacing:-.02em; margin-bottom:22px; }
+.hero h1 .hh-key, .hero h1 .hh-sub { color:#fff !important; font-weight:700; }
 .hero-photo { filter:none; }
 .hero-photo-wrap::before, .hero-photo-wrap::after { display:none; }
-
+@media(min-width:951px){
+  .hero-photo-wrap { width:min(calc(100% + 50px),660px); margin-right:-50px; }
+}
+.services .card { padding:0; overflow:hidden; }
+.services .card-img { width:100%; height:190px; object-fit:cover; display:block; margin-bottom:20px; }
+.services .card h3 { padding:0 26px; }
+.services .card p { padding:0 26px 28px; }
 </style>
 <!-- Homework Genie integrations: replace the placeholder IDs in HG_CONFIG below. -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -775,10 +784,10 @@
         <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m2 9 10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c3.5 2.5 8.5 2.5 12 0v-5"/><path d="M22 9v6"/></svg> Academic support, without the runaround
       </div>
 
-      <h1>
-        Homework help,<br>
-        <span>without the fuss.</span>
-      </h1>
+     <h1>
+  <span class="hh-key">Homework help,</span><br>
+  <span class="hh-sub">without the fuss.</span>
+</h1>
 
       <p>
         Need a hand with an assignment, research, or exam prep? Tell us what you are working on and we will take it from there.
@@ -792,7 +801,10 @@
           <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.4 11.6-8.9 8.9a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 1 1-2.8-2.8l8.5-8.5"/></svg> Submit an Assignment
         </button>
       </div>
-      <p class="form-note" style="margin-top:12px">No account required to request a quote. Already a client? <button type="button" class="auth-link" style="background:none;border:0;padding:0" onclick="openModal('login')">Log in</button></p>
+     <div style="display:inline-block">
+  <p class="form-note" style="margin-top:12px;margin-bottom:14px">No account required to request a quote. Already a client?</p>
+  <button type="button" class="btn btn-primary" style="padding:15px 25px;display:block;margin:0 auto" onclick="navLoginClick()">Log In</button>
+</div>
 
       <div class="stats">
 
@@ -841,7 +853,7 @@
     <div class="services">
 
       <div class="card">
-        <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></div>
+        <img class="card-img" src="/assets/services/assignment-support.jpg" alt="Student working on an assignment" loading="lazy">
         <h3>Assignment Support</h3>
         <p>
           Work through an assignment with clear guidance and useful feedback.
@@ -849,40 +861,35 @@
       </div>
 
       <div class="card">
-        <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3h6M10 3v6l-5.5 9.2A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.8L14 9V3"/><path d="M8 14h8"/></svg></div>
-        <h3>Research Support</h3>
+        <img class="card-img" src="/assets/services/research-support.jpg" alt="Student doing research" loading="lazy"><h3>Research Support</h3>
         <p>
           Get a second pair of eyes on sources, structure, and research notes.
         </p>
       </div>
 
       <div class="card">
-        <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4 20 4.5-1 9.8-9.8a2.1 2.1 0 0 0-3-3L5.5 16 4 20Z"/><path d="m13.5 7.5 3 3"/></svg></div>
-        <h3>Proofreading</h3>
+       <img class="card-img" src="/assets/services/proofreading.jpg" alt="Proofreading a written document" loading="lazy"><h3>Proofreading</h3>
         <p>
           Clean up grammar, structure, and wording before you submit.
         </p>
       </div>
 
       <div class="card">
-        <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="m16.5 7.5 4-4M18 3h2v2"/></svg></div>
-        <h3>Exam Preparation</h3>
+        <img class="card-img" src="/assets/services/exam-preparation.jpg" alt="Student preparing for an exam" loading="lazy"><h3>Exam Preparation</h3>
         <p>
           Review key topics, practise questions, and get ready for the next test.
         </p>
       </div>
 
       <div class="card">
-        <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 18h6M10 22h4"/><path d="M8 14a6 6 0 1 1 8 0c-1 1-2 2-2 4h-4c0-2-1-3-2-4Z"/></svg></div>
-        <h3>Project Guidance</h3>
+       <img class="card-img" src="/assets/services/project-guidance.jpg" alt="Planning a project" loading="lazy"> <h3>Project Guidance</h3>
         <p>
           Break a larger project into manageable pieces and keep the work moving.
         </p>
       </div>
 
       <div class="card">
-        <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="7" r="4"/><path d="M5 21a7 7 0 0 1 14 0M17 11v6M20 14h-6"/></svg></div>
-        <h3>Personalized Tutoring</h3>
+        <img class="card-img" src="/assets/services/tutoring.jpg" alt="One-to-one tutoring session" loading="lazy"> <h3>Personalized Tutoring</h3>
         <p>
           Ask for one-to-one help around the subject or task you are working on.
         </p>
