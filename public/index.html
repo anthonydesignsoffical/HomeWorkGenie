@@ -754,7 +754,7 @@
   .offer-list.columns { display:flex; flex-wrap:wrap; gap:8px 26px; }
 }
 .hg-slider{position:relative;max-width:1000px;margin:50px auto 0;border-radius:18px;overflow:hidden;box-shadow:0 14px 40px rgba(36,21,43,.18);border:1px solid var(--hg-line)}
-.hg-track{display:flex;transition:transform .6s ease}
+.hg-track{display:flex;will-change:transform}
 .hg-slide{flex:0 0 100%}
 .hg-slide img{display:block;width:100%;height:420px;object-fit:cover}
 .hg-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border:0;border-radius:50%;background:rgba(36,21,43,.65);color:#fff;font-size:26px;line-height:1;cursor:pointer}
@@ -765,6 +765,50 @@
 .hg-dots button{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.6);cursor:pointer}
 .hg-dots button.active{background:var(--hg-gold);width:26px;border-radius:6px}
 @media(max-width:700px){.hg-slide img{height:240px}.hg-arrow{width:36px;height:36px}}
+#how { padding-bottom:30px; }
+#about { padding-top:40px; padding-bottom:10px; }
+#about .section-title { margin-bottom:0; }
+footer.hg-footer{display:block;padding:55px 7% 26px;background:var(--hg-plum-deep);border-top:1px solid rgba(241,212,122,.18)}
+.hg-footer-top{display:grid;grid-template-columns:1.3fr 1fr 1.2fr 1.2fr;gap:36px;max-width:1100px;margin:0 auto}
+.hg-footer-brand p{margin-top:12px;color:#bdb1c0;font-size:14px}
+.hg-footer-col h4{color:#fff;font-size:16px;font-weight:700;margin-bottom:14px}
+.hg-footer-col a{display:block;color:#bdb1c0;font-size:14px;text-decoration:none;margin-bottom:10px;line-height:1.5}
+.hg-footer-col a:hover{color:var(--hg-gold-light)}
+.hg-footer-divider{max-width:1100px;height:1px;background:rgba(241,212,122,.18);margin:38px auto 30px}
+.hg-footer-social{text-align:center}
+.hg-footer-social h3{color:#fff;font-size:20px;margin-bottom:18px}
+.hg-social-row{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.hg-social-row a{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid rgba(241,212,122,.45);color:var(--hg-gold-light);background:rgba(255,255,255,.035);transition:.25s}
+.hg-social-row a:hover{background:var(--hg-gold);border-color:var(--hg-gold);color:#1d1422;transform:translateY(-3px)}
+.hg-social-row .ui-icon{width:22px;height:22px}
+.hg-footer-copy{text-align:center;margin-top:30px;color:#918898;font-size:13px}
+@media(max-width:900px){.hg-footer-top{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.hg-footer-top{grid-template-columns:1fr}}
+
+/* Mobile student dashboard */
+.dash-menu-btn{display:none;border:0;background:transparent;font-size:24px;line-height:1;color:#4b4351;padding:6px 8px;margin-right:6px;border-radius:8px;cursor:pointer}
+.dash-backdrop{display:none}
+@media(max-width:800px){
+  .dash-menu-btn{display:block}
+  .dash-sidebar{position:fixed;inset:0 auto 0 0;width:270px;flex-basis:270px;padding:24px 16px;z-index:10050;transform:translateX(-102%);transition:transform .3s ease;overflow-y:auto}
+  .dashboard.menu-open .dash-sidebar{transform:none}
+  .dashboard.menu-open .dash-backdrop{display:block;position:fixed;inset:0;background:rgba(10,5,14,.55);z-index:10040}
+  .dash-sidebar .logo{font-size:inherit;text-align:left;padding:0 0 18px}
+  .dash-sidebar .logo:before{content:none}
+  .side-label{display:block}
+  .side-nav button{text-align:left;padding:12px 13px}
+  .side-nav button .side-text{display:inline}
+  .profile-mini{justify-content:flex-start;padding:12px}
+  .profile-mini .side-text{display:block}
+  .logout-dashboard{font-size:14px}
+  .logout-dashboard:after{content:none}
+  .dash-topbar{height:64px;padding:0 14px}
+  .dash-topbar > div:first-of-type{flex:1;min-width:0}
+  .dash-topbar h2{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #topbarUserName{display:none}
+  .dash-main{padding:20px 14px 90px}
+  .panel-head{flex-wrap:wrap}
+}
 </style>
 <!-- Homework Genie integrations: replace the placeholder IDs in HG_CONFIG below. -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -1042,11 +1086,11 @@
     </div>
 	    <div class="hg-slider" id="hgSlider" aria-label="Homework Genie photo slider">
       <div class="hg-track">
-        <div class="hg-slide"><img src="/assets/how/slide-1.jpg" alt="" loading="lazy"></div>
-        <div class="hg-slide"><img src="/assets/how/slide-2.jpg" alt="" loading="lazy"></div>
-        <div class="hg-slide"><img src="/assets/how/slide-3.jpg" alt="" loading="lazy"></div>
-        <div class="hg-slide"><img src="/assets/how/slide-4.jpg" alt="" loading="lazy"></div>
-        <div class="hg-slide"><img src="/assets/how/slide-5.jpg" alt="" loading="lazy"></div>
+        <div class="hg-slide"><img src="/assets/how/slide-1.jpg" alt=""></div>
+        <div class="hg-slide"><img src="/assets/how/slide-2.jpg" alt=""></div>
+        <div class="hg-slide"><img src="/assets/how/slide-3.jpg" alt=""></div>
+        <div class="hg-slide"><img src="/assets/how/slide-4.jpg" alt=""></div>
+        <div class="hg-slide"><img src="/assets/how/slide-5.jpg" alt=""></div>
       </div>
       <button type="button" class="hg-arrow hg-prev" aria-label="Previous slide">&#8249;</button>
       <button type="button" class="hg-arrow hg-next" aria-label="Next slide">&#8250;</button>
@@ -1724,80 +1768,116 @@ const pendingInvoice =
   </a>
 
   <!-- FOOTER -->
-  <footer id="contact">
+    <!-- FOOTER -->
+  <footer id="contact" class="hg-footer">
 
-    <div>
+    <div class="hg-footer-top">
 
-      <div class="logo">
-        Homework<span>Genie</span>
+      <div class="hg-footer-brand">
+        <a class="logo" href="/" aria-label="Homework Genie home"><img src="/assets/homework-genie-logo-transparent.png" alt="Homework Genie"></a>
+        <p>Academic support made simple.</p>
       </div>
 
-      <p>
-        Academic support made simple.
-      </p>
+      <div class="hg-footer-col">
+        <h4>Explore</h4>
+        <a href="#services">Services</a>
+        <a href="#offers">What We Offer</a>
+        <a href="#how">How It Works</a>
+        <a href="#about">About</a>
+      </div>
 
-      <p>
-        © 2026 Homework Genie. All rights reserved.
-      </p>
+      <div class="hg-footer-col">
+        <h4>Email us</h4>
+        <a href="mailto:hwgenie@proton.me">hwgenie@proton.me</a>
+      </div>
 
-      <div class="contact-channels" aria-label="Homework Genie contact channels">
-        <a class="contact-channel" href="https://www.instagram.com/hw_genie/" target="_blank" rel="noopener noreferrer">
+      <div class="hg-footer-col">
+        <h4>Call us</h4>
+        <a href="tel:+19176404768">+1 (917) 640-4768</a>
+        <a href="https://wa.me/19176404768?text=Hello%20Homework%20Genie%2C%20I%20have%20a%20question%20about%20your%20services." target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
+      </div>
+
+    </div>
+
+    <div class="hg-footer-divider"></div>
+
+    <div class="hg-footer-social">
+      <h3>Stay connected</h3>
+      <div class="hg-social-row">
+
+        <a href="https://www.instagram.com/hw_genie/" target="_blank" rel="noopener noreferrer" aria-label="Instagram @hw_genie">
           <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".7" fill="currentColor" stroke="none"/></svg>
-          @hw_genie
         </a>
-        <a class="contact-channel" href="https://www.tiktok.com/@homeworkgenie" target="_blank" rel="noopener noreferrer">
+
+        <a href="https://www.tiktok.com/@homeworkgenie" target="_blank" rel="noopener noreferrer" aria-label="TikTok @homeworkgenie">
           <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v10.2a4.8 4.8 0 1 1-3.6-4.65"/><path d="M14 4c.7 2.2 2.1 3.4 4.5 3.7"/></svg>
-          @homeworkgenie
         </a>
-        <a class="contact-channel" href="mailto:hwgenie@proton.me">
-          <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
-          hwgenie@proton.me
-        </a>
-        <a class="contact-channel" href="https://wa.me/19176404768?text=Hello%20Homework%20Genie%2C%20I%20have%20a%20question%20about%20your%20services." target="_blank" rel="noopener noreferrer" aria-label="Chat with Homework Genie on WhatsApp">
+
+        <a href="https://wa.me/19176404768?text=Hello%20Homework%20Genie%2C%20I%20have%20a%20question%20about%20your%20services." target="_blank" rel="noopener noreferrer" aria-label="Chat with Homework Genie on WhatsApp">
           <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7c1.7.9 3.5 1.3 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.3-6.1-3.5-8.3ZM12.1 21.4h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.9 1 1-3.8-.2-.3a9.7 9.7 0 0 1-1.5-5.1c0-5.4 4.4-9.7 9.8-9.7 2.6 0 5.1 1 6.9 2.8a9.7 9.7 0 0 1 2.9 6.9c0 5.3-4.4 9.7-9.8 9.7Zm5.3-7.3c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.1-1.3-.5-2.5-1.6-.9-.8-1.6-1.8-1.8-2.1-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.5 0-.7-.1-.2-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.1 3.1 1.2 3.3c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/></svg>
-          WhatsApp
         </a>
-        <span class="contact-channel">
-          <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
-          hw_genie.com
-        </span>
+
+        <a href="mailto:hwgenie@proton.me" aria-label="Email Homework Genie">
+          <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+        </a>
+
       </div>
-
     </div>
 
-    <div class="footer-links">
-
-      <a href="tel:+19176404768"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 3h3l1.5 4-2 1.5a13 13 0 0 0 6 6l1.5-2 4 1.5v3c0 1-1 2-3 2C10 19 5 14 5 6c0-2 1-3 2-3Z"/></svg> +1 (917) 640-4768</a>
-
-      <a href="https://wa.me/19176404768">
-        WhatsApp
-      </a>
-
-      <a href="mailto:hwgenie@proton.me">
-        Email
-      </a>
-
-    </div>
+    <p class="hg-footer-copy">© 2026 Homework Genie. All rights reserved. · hw_genie.com</p>
 
   </footer>
 <script>
 (function(){
   var root=document.getElementById('hgSlider'); if(!root) return;
   var track=root.querySelector('.hg-track');
-  var n=root.querySelectorAll('.hg-slide').length;
+  var real=Array.prototype.slice.call(track.children);
+  var n=real.length; if(n<2) return;
+  track.insertBefore(real[n-1].cloneNode(true),real[0]);
+  track.appendChild(real[0].cloneNode(true));
   var dotsBox=document.getElementById('hgDots');
-  var i=0,timer=null,dots=[];
-  function go(x){i=(x+n)%n;track.style.transform='translateX(-'+(i*100)+'%)';dots.forEach(function(d,j){d.classList.toggle('active',j===i);});}
-  function restart(){clearInterval(timer);timer=setInterval(function(){go(i+1);},4500);}
-  for(var k=0;k<n;k++){(function(k){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Go to slide '+(k+1));b.onclick=function(){go(k);restart();};dotsBox.appendChild(b);dots.push(b);})(k);}
-  root.querySelector('.hg-prev').onclick=function(){go(i-1);restart();};
-  root.querySelector('.hg-next').onclick=function(){go(i+1);restart();};
+  var p=1,busy=false,timer=null,dots=[];
+
+  function setPos(animate){
+    track.style.transition=animate?'transform .9s cubic-bezier(.22,.61,.36,1)':'none';
+    track.style.transform='translate3d(-'+(p*100)+'%,0,0)';
+  }
+  function mark(){var a=(p-1+n)%n;dots.forEach(function(d,j){d.classList.toggle('active',j===a);});}
+  function norm(){
+    if(p===n+1){p=1;setPos(false);void track.offsetWidth;}
+    else if(p===0){p=n;setPos(false);void track.offsetWidth;}
+  }
+  function lock(){busy=true;setTimeout(function(){busy=false;},950);}
+  function step(d){if(busy)return;norm();lock();p+=d;setPos(true);mark();}
+  function jump(k){if(busy)return;norm();lock();p=k+1;setPos(true);mark();}
+  function restart(){clearInterval(timer);timer=setInterval(function(){step(1);},4500);}
+
+  track.addEventListener('transitionend',function(e){if(e.target===track){norm();}});
+
+  for(var k=0;k<n;k++){(function(k){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Go to slide '+(k+1));b.onclick=function(){jump(k);restart();};dotsBox.appendChild(b);dots.push(b);})(k);}
+  root.querySelector('.hg-prev').onclick=function(){step(-1);restart();};
+  root.querySelector('.hg-next').onclick=function(){step(1);restart();};
   root.addEventListener('mouseenter',function(){clearInterval(timer);});
   root.addEventListener('mouseleave',restart);
   var sx=null;
   root.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
-  root.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40){go(i+(dx<0?1:-1));restart();}sx=null;});
-  go(0);restart();
+  root.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40){step(dx<0?1:-1);restart();}sx=null;});
+
+  setPos(false);mark();restart();
+})();
+</script>
+<script>
+(function(){
+  var dash=document.getElementById('dashboard'), bar=document.querySelector('.dash-topbar');
+  if(!dash||!bar) return;
+  var btn=document.createElement('button'); btn.type='button'; btn.className='dash-menu-btn'; btn.setAttribute('aria-label','Open menu'); btn.innerHTML='&#9776;';
+  bar.insertBefore(btn,bar.firstChild);
+  var back=document.createElement('div'); back.className='dash-backdrop'; dash.appendChild(back);
+  function close(){dash.classList.remove('menu-open');}
+  btn.addEventListener('click',function(){dash.classList.toggle('menu-open');});
+  back.addEventListener('click',close);
+  dash.addEventListener('click',function(e){ if(e.target.closest && e.target.closest('.dash-sidebar button')) close(); });
+  window.addEventListener('resize',function(){ if(window.innerWidth>800) close(); });
 })();
 </script>
 </body>

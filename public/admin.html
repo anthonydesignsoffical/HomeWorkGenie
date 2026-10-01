@@ -27,6 +27,41 @@
 .brand img { object-fit:contain; background:transparent; }
 .btn-outline { background:#d6a83a !important; border-color:#d6a83a !important; color:#1d1422 !important; }
 .btn-outline:hover { background:#bd8f25 !important; border-color:#bd8f25 !important; color:#fff !important; }
+/* Mobile dashboard */
+.hamb{display:none}
+.side-backdrop{display:none}
+@media(max-width:800px){
+  .hamb{display:block;padding:6px 10px;border-radius:8px;color:#241d29}
+  .side{width:270px;padding:24px 14px;transform:translateX(-102%);transition:transform .3s ease;z-index:40}
+  body.nav-open .side{transform:none}
+  body.nav-open{overflow:hidden}
+  body.nav-open .side-backdrop{display:block;position:fixed;inset:0;background:rgba(10,5,14,.55);z-index:35}
+  .side .brand{padding:0 12px 28px}
+  .side .brand strong{display:inline}
+  .side .group-title{display:block}
+  .side .nav span:not(.ico){display:inline}
+  .side .count{display:inline-block}
+  .main{margin-left:0}
+  .top{height:64px;padding:0 12px;gap:10px}
+  .search{flex:1;width:auto;min-width:0;margin-left:0}
+  .wrap{padding:16px 12px}
+  .head{flex-wrap:wrap;gap:12px}
+  .head h1{font-size:24px}
+  .card-head{flex-wrap:wrap;gap:8px}
+  .table{min-width:620px}
+  .attention-row,.payment-row,.notification-row{flex-wrap:wrap}
+  .modal{padding:8px}
+  .modal-box{width:100%;max-height:96vh}
+  .detail,.quote-form{padding:14px}
+  .modal-actions{flex-wrap:wrap}
+  .modal-actions .btn{flex:1 1 140px}
+}
+@media(max-width:500px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .stat{padding:13px}
+  .stat .num{font-size:22px}
+  .top .avatar + div{display:none}
+}
 </style>
 </style>
 </head>
@@ -74,5 +109,16 @@ async function markPaid(id){const reference=prompt('Payment reference (optional)
 async function downloadFile(id,name){try{const r=await fetch('/api/files/'+id,{credentials:'same-origin'});if(!r.ok)throw Error('Unable to download file');const b=await r.blob();const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}catch(e){alert(e.message)}}
 function closeModal(){$('requestModal').classList.remove('open')};function backdrop(e){if(e.target.id==='requestModal')closeModal()}
 navSetup();$('loginPassword').addEventListener('keydown',e=>{if(e.key==='Enter')adminLogin()});
+</script>
+<script>
+(function(){
+  var hamb=document.querySelector('.hamb'); if(!hamb) return;
+  var back=document.createElement('div'); back.className='side-backdrop'; document.body.appendChild(back);
+  function close(){document.body.classList.remove('nav-open');}
+  hamb.addEventListener('click',function(){document.body.classList.toggle('nav-open');});
+  back.addEventListener('click',close);
+  document.addEventListener('click',function(e){ if(e.target.closest && e.target.closest('.side .nav')) close(); });
+  window.addEventListener('resize',function(){ if(window.innerWidth>800) close(); });
+})();
 </script>
 </body></html>
